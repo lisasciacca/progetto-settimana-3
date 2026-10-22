@@ -1,0 +1,163 @@
+* {
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+body {
+    font-family: "Spectral", Arial, Helvetica, sans-serif;
+    max-width: 992px;
+    padding: 10px;
+    color: #1b2845;
+    background-color: whitesmoke;
+}
+
+h1,
+h3 {
+    font-family: "Pinyon Script", Arial, Helvetica, sans-serif;
+}
+
+/*Header*/
+
+#lybra {
+    margin: 10px 0 10px 2px;
+    font-size: larger;
+}
+
+
+/* Contenitore Immagine di Sfondo */
+#headerMain {
+    min-height: 200px;
+    background-image: url('../img/header2.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+}
+
+
+#navBar {
+    float: left;
+    width: 25%;
+    margin: 2%;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+#navBar ul {
+    list-style-type: none;
+    margin: 2%;
+    padding: 0;
+    text-align: center;
+
+}
+
+#navBar li {
+    margin-bottom: 10px;
+}
+
+#navBar a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+#welcomeText {
+    float: right;
+    width: 30%;
+    margin: 1.5%;
+}
+
+#welcomeText p {
+    margin: 0;
+    font-size: larger;
+    color: #111;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 10px;
+    text-align: center;
+}
+
+/*Main*/
+
+/*Sezione nuovo libro.
+Include:
+Titolo, immagine, form*/
+
+#secNewBook {
+    margin-top: 2%;
+}
+
+h3 {
+    font-size: 1.8em;
+    text-align: center;
+}
+
+.flowers {
+    font-weight: lighter;
+    color: #855A41;
+}
+
+#formNewBook {
+    float: right; 
+    width: 55%;
+    height: auto;
+}
+
+#imgNewBook img {
+    float: left;
+    width: 34%;
+    height: auto;
+    border-radius: 50%;
+    margin: 5%;
+}
+
+/*Sezione libreria*/
+
+#secLibrary {
+    margin-top: 40%; /*temporaneo*/
+}
+
+/* Footer */
+
+footer {
+    background-color: #f6eee0;
+    height: 150px;
+    padding: 0 15px;
+}
+
+/* Regola comune per allineare l'altezza dei blocchi */
+
+#info,
+#social,
+#copyright {
+    float: left;
+    width: 29%;
+    margin-top: 37px;
+}
+
+#info {
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+#info ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+#social {
+    text-align: center;
+    margin-top: 40px;
+}
+
+i {
+    font-size: 2.2em;
+    padding: 4px;
+}
+
+#copyright {
+    float: right;
+    margin-right: 2%;
+    text-align: center;
+    margin-top: 65px;
+}

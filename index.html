@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="it">
+<link>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lybra</title>
+<link rel="stylesheet" type="text/css" href="assets/css/css.css">
+</link>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+</style>
+</head>
+
+<body>
+    <header>
+        <div id="lybra">
+            <h1>Lybra</h1>
+        </div>
+
+        <div id="headerMain" class="clearfix">
+            <nav id="navBar">
+                <ul>
+                    <li><a href="#"><span class="flowers">✿&nbsp</span>Aggiungi libro</a></li>
+                    <li><a href="#"><span class="flowers">✿&nbsp</span>La tua libreria</a></li>
+                    <li><a href="#"><span class="flowers">✿&nbsp</span> Libro del mese</a></li>
+                </ul>
+            </nav>
+
+            <div id="welcomeText">
+                <p>
+                    Benvenuto nel tuo diario di lettura! Qui potrai tenere traccia dei tuoi libri e non solo!
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="secNewBook">
+            <h3><span class="flowers">✿❯────「 ✿ &nbsp &nbsp</span>Aggiungi un nuovo libro allo libreria<span
+                    class="flowers">&nbsp &nbsp ✿ 」────❮✿</span>
+            </h3>
+            <div id="newBook">
+                <div id="imgNewBook">
+                    <img src="assets/img/newBook.jpg" alt="Libri su un ripiano">
+                </div>
+                <div id="formNewBook">
+                    <form>
+                        <div id="bookInfo">
+                            <label for="title">Titolo *</label>
+                            <input type="text" id="title" placeholder="Titolo del libro" required>
+                            <label for="author">Autore</label>
+                            <input type="text" id="author" placeholder="Autore del libro">
+                            <label for="genre">Genere</label>
+                            <select id="genre">
+                                <option selected>&nbsp</option>
+                                <option>Narrativa</option>
+                                <option>Poesia</option>
+                                <option>Saggistica</option>
+                                <option>Romantico</option>
+                                <option>Altro</option>
+                            </select>
+                            <label for="shelf">Scaffale</label>
+                            <select id="shelf">
+                                <option selected class="read">Letto</option>
+                                <option class="reading">Sto leggendo</option>
+                                <option class="wishlist">Voglio leggere</option>
+                            </select>
+                            <button class="start" type="submit">Invia</button>
+                        </div>
+                        <div id="noteRe">
+                            <label for="noteRecensione">Recensione/note</label>
+                            <input type="text" id="noteRecensione" placeholder="Scrivi qua la tua recensione o nota">
+                            <label for="rating">Valutazione</label>
+                            <input type="text" id="rating" placeholder="Inserisci da a 100">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div id="secLibrary">
+                <div id="library">
+                    <h3><span class="flowers">✿❯────「 ✿ &nbsp &nbsp</span>La tua libreria<span class="flowers">&nbsp
+                            &nbsp ✿ 」────❮✿</span></h3>
+                    <div id="lista">
+                        <ul id="ulLista"></ul>
+                    </div>
+                    <div id="buttons">
+                        <button id="btnTutti">Tutti</button>
+                        <button id="btnLetti">Letti</button>
+                        <button id="btnInCorso">Sto leggendo</button>
+                        <button id="btnWishlist">Voglio leggere</button>
+                    </div>
+                </div>
+                <div id="side">
+                    <img>
+                    <div id="bookMonth">
+                        <h4>Narciso e Boccadoro</h4>
+                        <p>Nell'abbazia di Mariabronn arriva un giorno un nuovo allievo, Boccadoro. Suo padre desidera
+                            che
+                            lì completi gli studi e che lì rimanga consacrando la vita a Dio per espiare un misterioso
+                            peccato legato alla sua nascita. Tra gli antichi chiostri e le ampie sale del monastero, il
+                            biondo Boccadoro, sensuale e sognatore, si lega di profonda amicizia col giovane insegnante
+                            Narciso, l'erudito, il prodigio delle scienze e delle lettere. Narciso è tutto spirito,
+                            destinato a una brillante carriera religiosa al riparo dalle insidie del mondo e della
+                            storia;
+                            Boccadoro invece è un 'Wanderer', un viandante, un senza casa. Tentato dall'infinita
+                            ricchezza
+                            della vita e segretamente innamorato anche della sua caducità, diventerà un artista geniale
+                            senza mai smettere di vagabondare per il mondo in cerca di risposte alle sue inquietudini.
+                            Ambientando "Narciso e Boccadoro" nel Medioevo leggendario del cattolicesimo monastico,
+                            Hermann
+                            Hesse ha modo di riflettere sul tema, centrale nella sua poetica, del contrasto fra natura e
+                            spirito, fra eros e logos, fra arte e ascesi, alla ricerca di una loro possibile
+                            integrazione.
+                            Questo romanzo, vera e propria "biografia di un'anima", pone così al lettore – in
+                            un'accattivante, limpida fusione di favola simbolica e romanzo picaresco perfettamente resa
+                            dalla nuova traduzione di Margherita Carbonaro – i grandi interrogativi sulla condizione
+                            dell'uomo contemporaneo.</p>
+                        <img>
+                    </div>
+                </div>
+                <div id="quotes">
+                    <p id="pQuotes"></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div id="info">
+            <ul>
+                <li>About us</li>
+                <li>Terms</li>
+                <li>Privacy</li>
+                <li>Help</li>
+            </ul>
+        </div>
+
+        <div id="social">
+            <i class="fa-brands fa-instagram"></i>
+            <i class="fa-brands fa-facebook-f"></i>
+            <br />
+            <i class="fa-brands fa-twitter"></i>
+            <i class="fa-brands fa-tiktok"></i>
+        </div>
+
+        <div id="copyright">
+            © Lisa Irene Sciacca
+        </div>
+    </footer>
+
+    <script src="js.js"></script>
+</body>
+
+</html>
