@@ -32,12 +32,11 @@ h3 {
 
 #lybra h1 {
     float: left;
-    margin: 0;
-
+    margin: 5px;
 }
 
 #themeButton {
-    margin: 5px;
+    margin: 15px;
     float: right;
     background-color: #745644e3;
     color: whitesmoke;
@@ -159,6 +158,10 @@ button, textarea {
     width: 280px;
 }
 
+.labelErrore {
+    color: red;
+}
+
 
 #imgNewBook img {
     float: left;
@@ -194,11 +197,14 @@ button, textarea {
 /*Sezione libreria*/
 
 #secLibrary {
-    margin-top: 8%;
+    margin-top: 10%;
 }
 
 #lista {
     margin-top: 2%;
+    height: 350px;
+    padding-right: 1%;
+    overflow-y: auto;
 }
 
 #ulLista li {
@@ -236,9 +242,11 @@ button, textarea {
 
 .divBtn {
     float: right;
-    width: 15%;
+    width: auto;
     text-align: right;
     border-radius: 20px;
+    padding: 4px 8px;
+    margin-left: 10px;
 }
 
 .divBtn button {
@@ -261,10 +269,68 @@ button, textarea {
     margin-left: 10px;
 }
 
+.rating {
+    font-size: 0.9em;
+}
+
+.percentuale::after {
+    content: " %";
+    font-weight: bold;
+}
+
+.stellina::after {
+    content: " ★";
+}
+
+#organizer {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto; 
+    text-align: center; 
+    padding-left: 50px;
+}
+
+/*searchbar*/
+
+#searchInput {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 14px;
+    margin-top: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;      
+    box-sizing: border-box;
+    font-size: 0.8rem;
+    float: left;
+}
+
+/*bottoni di ricerca*/
+
 #buttons button {
     border-radius: 15px;
     background-color: #745644e3;
     color: whitesmoke;
+}
+
+#buttons {
+    text-align: center;
+}
+
+.btn-group {
+    display: inline-block;  
+    text-align: center;     
+    margin: 0 8px;         
+}
+
+.btn-group .counter {
+    display: block;         
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: 5px;     
+}
+
+.btn-group button {
+    display: block;        
 }
 
 /*Nascondi cose*/

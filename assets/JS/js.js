@@ -23,7 +23,7 @@ const books = [
         genre: 'narrativa',
         shelf: 'reading',
         noteRe: '',
-        rate: '',
+        rate: 50,
         data: new Date(),
     },
     {
@@ -68,12 +68,26 @@ const bottoneTutti = document.querySelector("#btnTutti");
 const bottoneLetti = document.querySelector("#btnLetti");
 const bottoneInCorso = document.querySelector("#btnInCorso");
 const bottoneWishlist = document.querySelector("#btnWishlist");
+const bottoneDarkMode = document.querySelector("#themeButton");
+const sezioneRecensione = document.querySelector("#noteRe");
+const labelNoteRe = document.querySelector('label[for="noteRecensione"]');
+const labelRating = document.querySelector('label[for="rating"]');
+const searchInput = document.querySelector("#searchInput");
+const labelTitle = document.querySelector('label[for="title"]');
 
 const aggiungiTitle = () => {
     const titolo = valoreTitle.value.trim();
     const author = valoreAuthor.value.trim();
+    const ratingValue = Number(valoreRating.value);
+
 
     if (titolo !== "") {
+
+        if (valoreRating.value !== "" && (ratingValue < 0 || ratingValue > 100)) {
+            alert("Inserire un valore tra 0 e 100!");
+            return;
+        }
+
         const newBook = {
             title: titolo,
             author: author,
@@ -93,7 +107,25 @@ const aggiungiTitle = () => {
         if (typeof aggiornaContatore === 'function') {
             aggiornaContatore();
         }
+        alert(`Il libro "${titolo}" è stato aggiunto con successo!`);
     }
+
+    //Cambia la visualizzazione di recensione e valutazione
+    selettoreShelf.addEventListener('change', () => {
+        const valoreScelto = selettoreShelf.value;
+
+        if (valoreScelto === 'read') {
+            sezioneRecensione.classList.remove('hide');
+            labelNoteRe.textContent = "Recensione";
+            labelRating.textContent = "Valutazione";
+        } else if (valoreScelto === 'reading') {
+            sezioneRecensione.classList.remove('hide');
+            labelNoteRe.textContent = "Note";
+            labelRating.textContent = "Percentuale completamento";
+        } else {
+            sezioneRecensione.classList.add('hide');
+        }
+    });
 
     lista.textContent = "";
 
@@ -118,9 +150,19 @@ const aggiungiTitle = () => {
         spanGenre.className = "badge";
         spanGenre.textContent = book.genre;
 
-        /*const spanShelf = document.createElement("span");
-        spanShelf.className = "badge";
-        spanShelf.textContent = book.shelf;*/
+        const ratingSpan = document.createElement('span');
+        ratingSpan.textContent = book.rate;
+        ratingSpan.className = "rating";
+
+        //percentuale
+        if (book.shelf === 'reading') {
+            ratingSpan.classList.add("percentuale");
+        }
+
+        //stellina
+        if (book.shelf === 'read') {
+            ratingSpan.classList.add("stellina");
+        }
 
         const btnDiv = document.createElement("div");
         btnDiv.className = "divBtn";
@@ -140,7 +182,7 @@ const aggiungiTitle = () => {
         bookDiv.appendChild(titleSpan);
         bookDiv.appendChild(authorSpan);
         bookDiv.appendChild(spanGenre);
-        // bookDiv.appendChild(spanShelf);
+        btnDiv.appendChild(ratingSpan);
         btnDiv.appendChild(bottoneModifica);
         btnDiv.appendChild(bottoneElimina);
         nuovoLi.appendChild(bookDiv);
@@ -150,7 +192,17 @@ const aggiungiTitle = () => {
 };
 
 if (bottoneStart) {
-    bottoneStart.addEventListener("click", aggiungiTitle);
+    bottoneStart.addEventListener("click", () => {
+       
+        const titolo = valoreTitle.value.trim();
+        
+        if (titolo === "") {
+            alert("Errore: inserisci un titolo!");
+            return;
+        }
+
+        aggiungiTitle();
+    });
 }
 
 window.addEventListener("load", aggiungiTitle);
@@ -168,37 +220,39 @@ lista.addEventListener('click', (e) => {
             if (typeof aggiornaContatore === 'function') {
                 aggiornaContatore();
             }
+            alert(`Il libro è stato eliminato con successo!`);
             aggiungiTitle();
         }
 
         // Azione Modifica
-    if (e.target.classList.contains('btnModifica')) {
-        const liCorrente = e.target.closest('li');
-        
-        const titleSpan = liCorrente.querySelector('.title');
-        const authorSpan = liCorrente.querySelector('.author');
+        if (e.target.classList.contains('btnModifica')) {
+            const liCorrente = e.target.closest('li');
 
-        if (e.target.textContent === "Salva") {
-            const inputModifica = liCorrente.querySelector('.inputModifica');
-            const inputAutore = liCorrente.querySelector('.inputModificaAutore');
-            
-            books[index].title = inputModifica.value;
-            books[index].author = inputAutore.value;
-            
-            if (typeof aggiornaContatore === 'function') {
-                aggiornaContatore();
+            const titleSpan = liCorrente.querySelector('.title');
+            const authorSpan = liCorrente.querySelector('.author');
+
+            if (e.target.textContent === "Salva") {
+                const inputModifica = liCorrente.querySelector('.inputModifica');
+                const inputAutore = liCorrente.querySelector('.inputModificaAutore');
+
+                books[index].title = inputModifica.value;
+                books[index].author = inputAutore.value;
+
+                if (typeof aggiornaContatore === 'function') {
+                    aggiornaContatore();
+                }
+                aggiungiTitle();
+                alert(`Il libro è stato modificato con successo!`);
+            } else {
+                const titoloAttuale = books[index].title;
+                const autoreAttuale = books[index].author;
+
+                titleSpan.innerHTML = `<input type="text" class="inputModifica" value="${titoloAttuale}">`;
+                authorSpan.innerHTML = `<input type="text" class="inputModificaAutore" value="${autoreAttuale}">`;
+
+                e.target.textContent = "Salva";
             }
-            aggiungiTitle();
-        } else {
-            const titoloAttuale = books[index].title;
-            const autoreAttuale = books[index].author;
-
-            titleSpan.innerHTML = `<input type="text" class="inputModifica" value="${titoloAttuale}">`;
-            authorSpan.innerHTML = `<input type="text" class="inputModificaAutore" value="${autoreAttuale}">`;
-            
-            e.target.textContent = "Salva";
         }
-    }
     }
 });
 
@@ -255,5 +309,44 @@ if (bottoneWishlist) {
             }
         });
         aggiornaContatore();
+    });
+}
+
+//searchbar
+
+searchInput.addEventListener("input", (e) => {
+    const testoRicerca = e.target.value.toLowerCase();
+    const elementiLi = document.querySelectorAll("#ulLista li");
+
+    elementiLi.forEach(li => {
+        const titolo = li.querySelector(".title").textContent.toLowerCase();
+        const autore = li.querySelector(".author").textContent.toLowerCase();
+
+        if (titolo.includes(testoRicerca) || autore.includes(testoRicerca)) {
+            li.style.display = "";
+        } else {
+            li.style.display = "none";
+        }
+    });
+});
+
+const aggiornaContatore = () => {
+    const tutti = books.length;
+    const letti = books.filter(book => book.shelf === 'read').length;
+    const inCorso = books.filter(book => book.shelf === 'reading').length;
+    const wishlist = books.filter(book => book.shelf === 'wishlist').length;
+
+    // Aggiorna il testo degli span HTML con i nuovi id
+    document.querySelector("#countTutti").textContent = tutti;
+    document.querySelector("#countLetti").textContent = letti;
+    document.querySelector("#countInCorso").textContent = inCorso;
+    document.querySelector("#countWishlist").textContent = wishlist;
+};
+
+aggiornaContatore();
+
+if (bottoneDarkMode) {
+    bottoneDarkMode.addEventListener("click", () => {
+        document.body.classList.toggle("darkMode");
     });
 }
