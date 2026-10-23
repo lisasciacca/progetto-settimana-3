@@ -11,6 +11,11 @@ body {
     background-color: whitesmoke;
 }
 
+.darkMode {
+    background-color: #2e1d13;
+    color: whitesmoke;
+}
+
 h1,
 h3 {
     font-family: "Pinyon Script", Arial, Helvetica, sans-serif;
@@ -21,13 +26,29 @@ h3 {
 #lybra {
     margin: 10px 0 10px 2px;
     font-size: larger;
+    overflow: hidden;
+
 }
 
+#lybra h1 {
+    float: left;
+    margin: 0;
+
+}
+
+#themeButton {
+    margin: 5px;
+    float: right;
+    background-color: #745644e3;
+    color: whitesmoke;
+
+}
 
 /* Contenitore Immagine di Sfondo */
 #headerMain {
     min-height: 200px;
     background-image: url('../img/header2.jpg');
+    opacity: 0.7;
     background-size: cover;
     background-position: center;
     padding: 20px;
@@ -39,6 +60,7 @@ h3 {
     width: 25%;
     margin: 2%;
     background-color: rgba(255, 255, 255, 0.7);
+
 }
 
 #navBar ul {
@@ -83,6 +105,7 @@ Titolo, immagine, form*/
 
 #secNewBook {
     margin-top: 2%;
+    height: auto;
 }
 
 h3 {
@@ -96,10 +119,46 @@ h3 {
 }
 
 #formNewBook {
-    float: right; 
+    float: right;
     width: 55%;
     height: auto;
+    margin-top: 5%;
+
 }
+
+#formNewBook input,
+select,
+button, textarea {
+    opacity: 0.7;
+}
+
+#bookInfo {
+    float: left;
+    width: 45%;
+}
+
+#bookInfo label {
+    text-align: left;
+    padding: 5px;
+    display: block;
+}
+
+#noteRe {
+    float: right;
+    width: 54%;
+}
+
+#noteRe label {
+    text-align: left;
+    padding: 5px;
+    display: block;
+}
+
+#noteRecensione,
+#rating {
+    width: 280px;
+}
+
 
 #imgNewBook img {
     float: left;
@@ -107,18 +166,118 @@ h3 {
     height: auto;
     border-radius: 50%;
     margin: 5%;
+    opacity: 0.7;
+}
+
+#formFooter {
+    width: 55%;
+    display: inline-block;
+    margin: 15px 0;
+}
+
+#formFooter p {
+    text-align: left;
+    width: 40%;
+    float: right;
+}
+
+.start {
+    text-align: center;
+    width: 36%;
+    float: left;
+    margin-left: 8px;
+    border-radius: 15px;
+    background-color: #745644e3;
+    color: whitesmoke;
 }
 
 /*Sezione libreria*/
 
 #secLibrary {
-    margin-top: 40%; /*temporaneo*/
+    margin-top: 8%;
+}
+
+#lista {
+    margin-top: 2%;
+}
+
+#ulLista li {
+    width: 100%;
+    overflow: hidden;
+    padding: 6px 0;
+}
+
+#ulLista .author::before {
+    content: '❀';
+    padding-right: 10px;
+    padding-left: 10px;
+    color: #855A41;
+}
+
+#ulLista .read .title::before {
+    content: '✔️ ';
+    padding-right: 10px;
+}
+
+#ulLista .reading .title::before {
+    content: '📖 ';
+    padding-right: 10px;
+}
+
+#ulLista .wishlist .title::before {
+    content: '📚';
+    padding-right: 10px;
+}
+
+.divbook {
+    float: left;
+    width: 70%;
+}
+
+.divBtn {
+    float: right;
+    width: 15%;
+    text-align: right;
+    border-radius: 20px;
+}
+
+.divBtn button {
+    margin-left: 5px;
+    border-radius: 15px;
+    background-color: #745644e3;
+    color: whitesmoke;
+}
+
+.title::after,
+.author::after {
+    content: ' ';
+}
+
+.badge {
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    margin-left: 10px;
+}
+
+#buttons button {
+    border-radius: 15px;
+    background-color: #745644e3;
+    color: whitesmoke;
+}
+
+/*Nascondi cose*/
+
+.hide {
+	display: none;
 }
 
 /* Footer */
 
 footer {
-    background-color: #f6eee0;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 2px solid rgba(255, 255, 255);
     height: 150px;
     padding: 0 15px;
 }
@@ -130,7 +289,7 @@ footer {
 #copyright {
     float: left;
     width: 29%;
-    margin-top: 37px;
+    margin-top: 30px;
 }
 
 #info {
@@ -147,7 +306,7 @@ footer {
 
 #social {
     text-align: center;
-    margin-top: 40px;
+    margin-top: 35px;
 }
 
 i {
@@ -159,5 +318,5 @@ i {
     float: right;
     margin-right: 2%;
     text-align: center;
-    margin-top: 65px;
+    margin-top: 40px;
 }
