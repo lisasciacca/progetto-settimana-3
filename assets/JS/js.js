@@ -76,6 +76,13 @@ const labelRating = document.querySelector('label[for="rating"]');
 const searchInput = document.querySelector("#searchInput");
 const labelTitle = document.querySelector('label[for="title"]');
 
+//impedisce all'utente di inserire un valone non numerico nella textarea
+valoreRating.addEventListener('input', (e) => {
+    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+    alert("Inserire un valore numerico tra 0 e 100!");
+    return;
+});
+
 const aggiungiTitle = () => {
     const titolo = valoreTitle.value.trim();
     const author = valoreAuthor.value.trim();

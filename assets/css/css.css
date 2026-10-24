@@ -494,6 +494,15 @@ footer {
     text-align: center;
 }
 
+#info a{
+    text-decoration: none;
+    color: #855A41;
+}
+
+#info a:hover {
+    color: #C08066;
+}
+
 #social {
     text-align: center;
     margin-top: 35px;
