@@ -18,5 +18,14 @@
 * **CSS** (con stili personalizzati) per il design grafico e il layout responsive in stile vintage/pastello.
 * **JavaScript** per la gestione della logica applicativa, la validazione dei campi, la manipolazione dinamica del DOM e la memorizzazione dei dati.
 
+## Architettura e Dettagli Tecnologici
+
+La logica dell'applicazione si basa su un array di oggetti iniziale per la gestione dei dati e sull'uso di selettori globali per la manipolazione del DOM.
+
+### Funzionalità Tecniche Principali:
+* **Rendering dinamico (`render`):** Gestisce l'inserimento dei libri nelle rispettive liste, valida i dati del modulo di input, suddivide gli elementi per categoria e applica dinamica di stili e classi CSS. Genera inoltre i controlli interattivi per la modifica di titolo e autore e per l'eliminazione dei libri.
+* **Validazione e Gestione Eventi:** Gli event listener gestiscono la convalida dei moduli, fornendo feedback visivi ed errori in caso di dati non validi o conferme all'aggiunta e rimozione dei libri.
+* **Filtri e Contatori:** Una funzione dedicata aggiorna dinamicamente i contatori di ogni sezione, consentendo di visualizzare i libri filtrati per categoria tramite appositi pulsanti.
+* **Ricerca e Tema:** Include una barra di ricerca in tempo reale per la lista principale e un selettore di tema (chiaro/scuro) per personalizzare l'aspetto visivo della pagina.
 
 
