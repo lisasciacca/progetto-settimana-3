@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lybra</title>
+    <title>Lybra - Diario di lettura</title>
     <link rel="stylesheet" type="text/css" href="assets/css/css.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -22,9 +22,9 @@
         <div id="headerMain" class="clearfix">
             <nav id="navBar">
                 <ul>
-                    <li><a href="#"><span class="flowers">✿&nbsp</span>Aggiungi libro</a></li>
-                    <li><a href="#"><span class="flowers">✿&nbsp</span>La tua libreria</a></li>
-                    <li><a href="#"><span class="flowers">✿&nbsp</span> Libro del mese</a></li>
+                    <li><a href="#secLibrary"><span class="flowers">✿&nbsp</span>La tua libreria</a></li>
+                    <li><a href="#bookMonth"><span class="flowers">✿&nbsp</span> Libro del mese</a></li>
+                    <li><a href="#secRecensione"><span class="flowers">✿&nbsp</span>Le tue recensioni</a></li>
                 </ul>
             </nav>
 
@@ -119,10 +119,25 @@
                         </div>
                     </div>
                 </div>
-                <div id="side">
-                    <img>
+        </section>
+
+          <section>
+            <div id="secRecensione">
+                <div id="recensione">
+                    <h3><span class="flowers">✿❯────「 ✿ &nbsp &nbsp</span>Le tue recensioni<span class="flowers">&nbsp
+                            &nbsp ✿ 」────❮✿</span></h3>
+                    <div id="listaRe">
+                        <ul id="ulListaRe"></ul>
+                    </div>
+                </div>
+        </section>
+
+        <section>
+            <div id="extra">
                     <div id="bookMonth">
+                        <h3><span class="flowers">✿&nbsp &nbsp</span> Libro del mese <span class="flowers">&nbsp &nbsp✿</span></h3>
                         <h4>Narciso e Boccadoro</h4>
+                        <img src="assets/img/cover.jpg" alt="Copertina del libro Narciso e Boccadoro di Hermann Hesse">
                         <p>Nell'abbazia di Mariabronn arriva un giorno un nuovo allievo, Boccadoro. Suo padre desidera
                             che
                             lì completi gli studi e che lì rimanga consacrando la vita a Dio per espiare un misterioso
@@ -144,7 +159,6 @@
                             un'accattivante, limpida fusione di favola simbolica e romanzo picaresco perfettamente resa
                             dalla nuova traduzione di Margherita Carbonaro – i grandi interrogativi sulla condizione
                             dell'uomo contemporaneo.</p>
-                        <img>
                     </div>
                 </div>
                 <div id="quotes">
@@ -157,19 +171,19 @@
     <footer>
         <div id="info">
             <ul>
-                <li>About us</li>
-                <li>Terms</li>
-                <li>Privacy</li>
-                <li>Help</li>
+                <li><a href="aboutUs.html" target="_blank">About us</a></li>
+                <li><a href="aboutUs.html" target="_blank">Terms</a></li>
+                <li><a href="aboutUs.html" target="_blank">Privacy</a></li>
+                <li><a href="aboutUs.html" target="_blank">Help</a></li>
             </ul>
         </div>
 
         <div id="social">
-            <i class="fa-brands fa-instagram"></i>
-            <i class="fa-brands fa-facebook-f"></i>
+            <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.facebook.com/" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
             <br />
-            <i class="fa-brands fa-twitter"></i>
-            <i class="fa-brands fa-tiktok"></i>
+            <a href="https://x.com" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+            <a href="https://www.tiktok.com" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
         </div>
 
         <div id="copyright">

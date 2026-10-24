@@ -4,16 +4,16 @@ const books = [
         author: 'Oscar Wilde',
         genre: 'narrativa',
         shelf: 'read',
-        noteRe: '-',
+        noteRe: "Una commedia teatrale brillante, ricca di ironia, equivoci ed eleganza stilistica. Wilde svela l'ipocrisia della società borghese dell'epoca con dialoghi incalzanti e aforismi memorabili.",
         rate: 78,
         data: new Date()
     },
     {
         title: 'Siddharta',
-        author: 'Hermann Hessee',
+        author: 'Hermann Hesse',
         genre: 'narrativa',
         shelf: 'read',
-        noteRe: '',
+        noteRe: "Un capolavoro spirituale ed filosofico che racconta il viaggio interiore di un giovane alla ricerca del senso della vita e della vera illuminazione, attraverso l'esperienza diretta e la riscoperta della pace interiore.",
         rate: 98,
         data: new Date(),
     },
@@ -22,7 +22,7 @@ const books = [
         author: 'Oscar Wilde',
         genre: 'narrativa',
         shelf: 'reading',
-        noteRe: '',
+        noteRe: "Sono a buon punto :D",
         rate: 50,
         data: new Date(),
     },
@@ -49,7 +49,7 @@ const books = [
         author: 'Erich Fromm',
         genre: 'saggistica',
         shelf: 'read',
-        noteRe: '',
+        noteRe: "Un saggio fondamentale che analizza l'amore non come un semplice sentimento passivo, ma come un'arte che richiede impegno, consapevolezza, maturità e pratica quotidiana nei confronti di sé stessi e degli altri.",
         rate: 90,
         data: new Date(),
     },
@@ -60,6 +60,7 @@ const valoreAuthor = document.querySelector("#author");
 const valoreNoteRe = document.querySelector("#noteRecensione");
 const valoreRating = document.querySelector("#rating");
 const lista = document.querySelector("#ulLista");
+const listaRe = document.querySelector("#ulListaRe");
 const contatore = document.querySelector("#contatore");
 const selettoreShelf = document.querySelector("#shelf");
 const selettoreGenre = document.querySelector("#genre");
@@ -84,7 +85,7 @@ const aggiungiTitle = () => {
     if (titolo !== "") {
 
         if (valoreRating.value !== "" && (ratingValue < 0 || ratingValue > 100)) {
-            alert("Inserire un valore tra 0 e 100!");
+            alert("Inserire un valore numerico tra 0 e 100!");
             return;
         }
 
@@ -128,41 +129,94 @@ const aggiungiTitle = () => {
     });
 
     lista.textContent = "";
+    listaRe.textContent = "";
 
     books.forEach((book, index) => {
         const nuovoLi = document.createElement("li");
+        const nuovoLiRe = document.createElement("li");
 
         nuovoLi.classList.add(book.shelf);
         nuovoLi.classList.add(book.genre);
 
+        if (book.shelf === 'wishlist') {
+            nuovoLiRe.classList.add("hide");
+        }
+
+        nuovoLiRe.classList.add(book.shelf);
+        nuovoLiRe.classList.add(book.genre);
+
         const bookDiv = document.createElement("div");
         bookDiv.className = "divbook";
+
+        const reBookTitle = document.createElement("div");
+        reBookTitle.className = "divReBookTitle";
 
         const titleSpan = document.createElement('span');
         titleSpan.textContent = book.title;
         titleSpan.className = "title";
 
+        const titleSpanRe = document.createElement('span');
+        titleSpanRe.textContent = book.title;
+        titleSpanRe.className = "title";
+
         const authorSpan = document.createElement('span');
         authorSpan.textContent = book.author;
         authorSpan.className = "author";
+
+        const authorSpanRe = document.createElement('span');
+        authorSpanRe.textContent = book.author;
+        authorSpanRe.className = "author";
 
         const spanGenre = document.createElement("span");
         spanGenre.className = "badge";
         spanGenre.textContent = book.genre;
 
+        const spanGenreRe = document.createElement("span");
+        spanGenreRe.className = "badge";
+        spanGenreRe.textContent = book.genre;
+
         const ratingSpan = document.createElement('span');
         ratingSpan.textContent = book.rate;
         ratingSpan.className = "rating";
 
+        const ratingSpanRe = document.createElement('span');
+        ratingSpanRe.textContent = book.rate;
+        ratingSpanRe.className = "rating";
+
+        const pRe = document.createElement('p');
+        pRe.textContent = book.noteRe;
+        pRe.className = "pRe";
+
+        const barraContenitore = document.createElement('div');
+        barraContenitore.className = "barraContenitore";
+
+        const valoreRate = book.rate;
+
+        const barraRiempimento = document.createElement("div");
+        barraRiempimento.className = "barraRiempimento";
+        barraRiempimento.style.width = `${valoreRate}%`;
+
+        barraContenitore.appendChild(barraRiempimento);
+
         //percentuale
         if (book.shelf === 'reading') {
             ratingSpan.classList.add("percentuale");
+            ratingSpanRe.classList.add("percentuale");
         }
 
         //stellina
         if (book.shelf === 'read') {
             ratingSpan.classList.add("stellina");
+            ratingSpanRe.classList.add("stellina");
         }
+
+        //nasconde barra
+        if (book.shelf === 'wishlist') {
+            barraContenitore.classList.remove("barraContenitore");
+        }
+
+        const reDivCen = document.createElement("div");
+        reDivCen.className = "reDivCen";
 
         const btnDiv = document.createElement("div");
         btnDiv.className = "divBtn";
@@ -183,19 +237,30 @@ const aggiungiTitle = () => {
         bookDiv.appendChild(authorSpan);
         bookDiv.appendChild(spanGenre);
         btnDiv.appendChild(ratingSpan);
+        btnDiv.appendChild(barraContenitore);
         btnDiv.appendChild(bottoneModifica);
         btnDiv.appendChild(bottoneElimina);
         nuovoLi.appendChild(bookDiv);
         nuovoLi.appendChild(btnDiv);
         lista.appendChild(nuovoLi);
+
+        reDivCen.appendChild(titleSpanRe);
+        reDivCen.appendChild(authorSpanRe);
+        reDivCen.appendChild(spanGenreRe);
+        reDivCen.appendChild(ratingSpanRe);
+        reBookTitle.appendChild(reDivCen);
+        reBookTitle.appendChild(pRe);
+
+        nuovoLiRe.appendChild(reBookTitle);
+        listaRe.appendChild(nuovoLiRe);
     });
 };
 
 if (bottoneStart) {
     bottoneStart.addEventListener("click", () => {
-       
+
         const titolo = valoreTitle.value.trim();
-        
+
         if (titolo === "") {
             alert("Errore: inserisci un titolo!");
             return;
@@ -255,6 +320,7 @@ lista.addEventListener('click', (e) => {
         }
     }
 });
+
 
 // Gestione dei bottoni di filtro
 if (bottoneTutti) {

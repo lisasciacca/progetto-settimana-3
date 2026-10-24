@@ -40,7 +40,10 @@ h3 {
     float: right;
     background-color: #745644e3;
     color: whitesmoke;
+}
 
+#themeButton:hover {
+    background-color: #C08066;
 }
 
 /* Contenitore Immagine di Sfondo */
@@ -79,6 +82,10 @@ h3 {
     color: #333;
     font-size: 1.3em;
     font-weight: bold;
+}
+
+#navBar a:hover {
+    color: #C08066;
 }
 
 #welcomeText {
@@ -131,6 +138,12 @@ button, textarea {
     opacity: 0.7;
 }
 
+#formNewBook input:focus,
+select:focus,
+textarea:focus {
+    background-color: antiquewhite;
+}
+
 #bookInfo {
     float: left;
     width: 45%;
@@ -157,11 +170,6 @@ button, textarea {
 #rating {
     width: 280px;
 }
-
-.labelErrore {
-    color: red;
-}
-
 
 #imgNewBook img {
     float: left;
@@ -192,6 +200,10 @@ button, textarea {
     border-radius: 15px;
     background-color: #745644e3;
     color: whitesmoke;
+}
+
+.start:hover {
+    background-color: #C08066;
 }
 
 /*Sezione libreria*/
@@ -237,7 +249,7 @@ button, textarea {
 
 .divbook {
     float: left;
-    width: 70%;
+    width: 67%;
 }
 
 .divBtn {
@@ -249,11 +261,32 @@ button, textarea {
     margin-left: 10px;
 }
 
+.barraContenitore {
+    width: 100px; /* Regola la larghezza della barra */
+    height: 8px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+    display: inline-block;
+    margin-left: 8px;
+}
+
+.barraRiempimento {
+    height: 100%;
+    background-color: #855A41; 
+    border-radius: 4px;
+    float: left;
+}
+
 .divBtn button {
     margin-left: 5px;
     border-radius: 15px;
     background-color: #745644e3;
     color: whitesmoke;
+}
+
+.divBtn button:hover {
+    background-color: #C08066;
 }
 
 .title::after,
@@ -304,12 +337,20 @@ button, textarea {
     float: left;
 }
 
+#searchInput:focus {
+    background-color: antiquewhite;
+}
+
 /*bottoni di ricerca*/
 
 #buttons button {
     border-radius: 15px;
     background-color: #745644e3;
     color: whitesmoke;
+}
+
+#buttons button:hover {
+    background-color: #C08066;
 }
 
 #buttons {
@@ -337,6 +378,89 @@ button, textarea {
 
 .hide {
 	display: none;
+}
+
+/*Sezione Recensione*/
+
+#secRecensione {
+    margin-top: 10%;
+}
+
+#listaRe {
+    margin-top: 2%;
+    height: 450px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 10px;
+}
+
+
+#ulListaRe li {
+    width: 100%;
+    overflow: hidden;
+    padding: 6px;
+    margin: 7px 0px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 20px;
+}
+
+#ulListaRe li p{
+    padding: 5px;
+}
+
+.reDivCen {
+    text-align: center;
+}
+
+#ulListaRe .author::before {
+    content: '❀';
+    padding-right: 10px;
+    padding-left: 10px;
+    color: #855A41;
+}
+
+#ulListaRe .read .title::before {
+    content: '✨ ';
+    padding-right: 10px;
+}
+
+#ulListaRe .reading .title::before {
+    content: '🗒️ ';
+    padding-right: 10px;
+}
+
+.reBookTitle {
+    float: left;
+    width: 67%;
+}
+
+
+/*Libro del mese*/
+
+#bookMonth, #aiuto {
+    border: 2px solid #855A41;
+    border-radius: 20px;
+    padding: 12px;
+    margin: 15px;
+}
+
+#bookMonth h3, #aiuto h3 {
+    margin: 15px;
+}
+
+#bookMonth h4 {
+    margin: 15px 0;
+    font-size: large;
+}
+#bookMonth p, #aiuto p {
+    text-align: justify;
+}
+
+#bookMonth img {
+    width: 200px;
+    float: right;
+    margin: 5px 5px 5px 12px;
+    opacity: 0.7;
 }
 
 /* Footer */
@@ -378,6 +502,11 @@ footer {
 i {
     font-size: 2.2em;
     padding: 4px;
+    color: #855A41;
+}
+
+#social i:hover {
+    color: #C08066;
 }
 
 #copyright {
