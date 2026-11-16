@@ -1,292 +1,240 @@
-* {
-    box-sizing: border-box;
-    margin: 0 auto;
+/* =========================================================
+   Lybra - CSS
+   Layout, spaziature e componenti vengono da Bootstrap (classi nell'HTML).
+   Qui restano solo colori, font e dettagli personali.
+   Le regole usano il CSS ANNIDATO: "&" indica il selettore che contiene la regola.
+   ========================================================= */
+
+/* ===== Variabili colore ===== */
+:root {
+    --blu: #1b2845;
+    --marrone: #855A41;
+    --marrone-trasparente: #745644e3;
+    --rosa: #C08066;
+    --sfondo: #f4f1ec;
+    --sfondo-scuro: #2e1d13;
+    --bordo-vetro: #e2dbd2;
 }
 
 body {
     font-family: "Spectral", Arial, Helvetica, sans-serif;
     max-width: 992px;
+    margin: 0 auto;
     padding: 10px;
-    color: #1b2845;
-    background-color: whitesmoke;
+    color: var(--blu);
+    background-color: var(--sfondo);
 }
 
-.darkMode {
-    background-color: #2e1d13;
-    color: whitesmoke;
+/* Le sezioni si fermano sotto la barra fissa quando ci si arriva dai link del menu */
+section {
+    scroll-margin-top: 90px;
 }
 
+/* ===== Font dei titoli ===== */
 h1,
-h3 {
+.titoloSezione,
+.titoloHero {
     font-family: "Pinyon Script", Arial, Helvetica, sans-serif;
 }
 
-/*Header*/
-
-#lybra {
-    margin: 10px 0 10px 2px;
-    font-size: larger;
-    overflow: hidden;
-
-}
-
-#lybra h1 {
-    float: left;
-    margin: 5px;
-}
-
-#themeButton {
-    margin: 15px;
-    float: right;
-    background-color: #745644e3;
-    color: whitesmoke;
-}
-
-#themeButton:hover {
-    background-color: #C08066;
-}
-
-/* Contenitore Immagine di Sfondo */
-#headerMain {
-    min-height: 200px;
-    background-image: url('../img/header2.jpg');
-    opacity: 0.7;
-    background-size: cover;
-    background-position: center;
-    padding: 20px;
-}
-
-
-#navBar {
-    float: left;
-    width: 25%;
-    margin: 2%;
-    background-color: rgba(255, 255, 255, 0.7);
-
-}
-
-#navBar ul {
-    list-style-type: none;
-    margin: 2%;
-    padding: 0;
-    text-align: center;
-
-}
-
-#navBar li {
-    margin-bottom: 10px;
-}
-
-#navBar a {
-    text-decoration: none;
-    color: #333;
-    font-size: 1.3em;
-    font-weight: bold;
-}
-
-#navBar a:hover {
-    color: #C08066;
-}
-
-#welcomeText {
-    float: right;
-    width: 30%;
-    margin: 1.5%;
-}
-
-#welcomeText p {
-    margin: 0;
-    font-size: larger;
-    color: #111;
-    background-color: rgba(255, 255, 255, 0.7);
-    padding: 10px;
-    text-align: center;
-}
-
-/*Main*/
-
-/*Sezione nuovo libro.
-Include:
-Titolo, immagine, form*/
-
-#secNewBook {
-    margin-top: 2%;
-    height: auto;
-}
-
-h3 {
-    font-size: 1.8em;
-    text-align: center;
+.titoloSezione {
+    font-size: 2rem;
 }
 
 .flowers {
     font-weight: lighter;
-    color: #855A41;
+    color: var(--marrone);
 }
 
-#formNewBook {
-    float: right;
-    width: 55%;
-    height: auto;
-    margin-top: 5%;
-
+/* ===== Effetto vetro =====
+   Usato da barra, sezioni e footer: bianco semitrasparente + sfocatura di ciò che sta dietro */
+.vetro {
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--bordo-vetro);
 }
 
-#formNewBook input,
-select,
-button, textarea {
-    opacity: 0.7;
+/* ===== Bottoni personalizzati =====
+   Bootstrap disegna i .btn usando delle variabili CSS: basta cambiarle */
+
+/* Bottone pieno marrone */
+.btn-lybra {
+    --bs-btn-bg: var(--marrone-trasparente);
+    --bs-btn-border-color: var(--marrone-trasparente);
+    --bs-btn-color: whitesmoke;
+    --bs-btn-hover-bg: var(--rosa);
+    --bs-btn-hover-border-color: var(--rosa);
+    --bs-btn-hover-color: whitesmoke;
+    --bs-btn-active-bg: var(--rosa);
+    --bs-btn-active-border-color: var(--rosa);
+    --bs-btn-active-color: whitesmoke;
 }
 
-#formNewBook input:focus,
-select:focus,
-textarea:focus {
-    background-color: antiquewhite;
+/* Bottone con solo il bordo (filtri, "Vai alla libreria", "Mostra recensioni").
+   Con la classe "active" diventa pieno: così si vede il filtro selezionato */
+.btn-outline-lybra {
+    --bs-btn-color: var(--marrone);
+    --bs-btn-border-color: var(--marrone);
+    --bs-btn-hover-bg: var(--rosa);
+    --bs-btn-hover-border-color: var(--rosa);
+    --bs-btn-hover-color: whitesmoke;
+    --bs-btn-active-bg: var(--marrone-trasparente);
+    --bs-btn-active-border-color: var(--marrone-trasparente);
+    --bs-btn-active-color: whitesmoke;
 }
 
-#bookInfo {
-    float: left;
-    width: 45%;
+/* ===== Barra di navigazione ===== */
+#navBar {
+    & h1 {
+        font-size: 2.4rem;
+
+        & a {
+            color: inherit;
+            text-decoration: none;
+        }
+    }
+
+    /* Link con sottolineatura che "scorre" da sinistra al passaggio del mouse */
+    & .linkNav {
+        position: relative;
+        color: var(--blu);
+        text-decoration: none;
+        font-weight: 500;
+
+        /* La linea: parte larga 0 e si allarga fino al 100% */
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -3px;
+            width: 0;
+            height: 1px;
+            background-color: var(--rosa);
+            transition: width 0.25s ease;
+        }
+
+        &:hover {
+            color: var(--rosa);
+
+            &::after {
+                width: 100%;
+            }
+        }
+    }
 }
 
-#bookInfo label {
-    text-align: left;
-    padding: 5px;
-    display: block;
+/* Bottone del tema: cerchio di 40px con l'icona al centro */
+#themeButton {
+    width: 40px;
+    height: 40px;
+    padding: 0;
 }
 
-#noteRe {
-    float: right;
-    width: 54%;
+/* ===== Hero ===== */
+#hero {
+    min-height: 420px;
+    background-image: url('../img/header2.jpg');
+    background-size: cover;
+    background-position: center;
+
+    /* Riquadro centrale effetto vetro */
+    & .heroBox {
+        max-width: min(560px, 100%);
+        background-color: rgba(255, 255, 255, 0.45);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.8);
+
+        & p {
+            color: #111;
+        }
+
+        & .titoloHero {
+            font-size: 2.8rem;
+            line-height: 1.2;
+            color: var(--marrone);
+        }
+    }
 }
 
-#noteRe label {
-    text-align: left;
-    padding: 5px;
-    display: block;
+/* ===== Campi dei form (modale e modifica) ===== */
+.form-control,
+.form-select {
+    &:focus {
+        background-color: antiquewhite;
+        color: var(--blu);
+    }
 }
 
-#noteRecensione,
-#rating {
-    width: 280px;
+#searchInput {
+    max-width: 320px;
+    font-size: 0.9rem;
 }
 
-#imgNewBook img {
-    float: left;
-    width: 34%;
-    height: auto;
-    border-radius: 50%;
-    margin: 5%;
-    opacity: 0.7;
+/* Nasconde le freccette dei campi anno (form principale e modifica) */
+#year,
+.modAnno {
+    -moz-appearance: textfield;   /* Firefox */
+    appearance: textfield;
+
+    /* Chrome, Edge, Safari */
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
 }
 
-#formFooter {
-    width: 55%;
-    display: inline-block;
-    margin: 15px 0;
+/* Titolo della modale in Pinyon Script, un po' più grande */
+#modaleLibro .modal-title {
+    font-size: 2.2rem;
 }
 
-#formFooter p {
-    text-align: left;
-    width: 40%;
-    float: right;
-}
+/* ===== Libreria ===== */
 
-.start {
-    text-align: center;
-    width: 36%;
-    float: left;
-    margin-left: 8px;
-    border-radius: 15px;
-    background-color: #745644e3;
+/* Contatore dentro i bottoni dei filtri */
+.contatore {
+    background-color: var(--marrone);
     color: whitesmoke;
-}
-
-.start:hover {
-    background-color: #C08066;
-}
-
-/*Sezione libreria*/
-
-#secLibrary {
-    margin-top: 10%;
+    font-weight: normal;
 }
 
 #lista {
-    margin-top: 2%;
-    height: 350px;
-    padding-right: 1%;
+    max-height: 380px;
     overflow-y: auto;
+    padding-right: 1%;
 }
 
-#ulLista li {
-    width: 100%;
-    overflow: hidden;
-    padding: 6px 0;
+#ulLista {
+    /* Ultima riga senza linea sotto */
+    & li:last-child {
+        border-bottom: none !important;
+    }
+
+    & .author::before {
+        content: '❀';
+        padding: 0 10px;
+        color: var(--marrone);
+    }
+
+    /* Icona davanti al titolo in base allo scaffale (classe del <li>) */
+    & .read .title::before {
+        content: '✔️ ';
+        padding-right: 10px;
+    }
+
+    & .reading .title::before {
+        content: '📖 ';
+        padding-right: 10px;
+    }
+
+    & .wishlist .title::before {
+        content: '📚';
+        padding-right: 10px;
+    }
 }
 
-#ulLista .author::before {
-    content: '❀';
-    padding-right: 10px;
-    padding-left: 10px;
-    color: #855A41;
-}
-
-#ulLista .read .title::before {
-    content: '✔️ ';
-    padding-right: 10px;
-}
-
-#ulLista .reading .title::before {
-    content: '📖 ';
-    padding-right: 10px;
-}
-
-#ulLista .wishlist .title::before {
-    content: '📚';
-    padding-right: 10px;
-}
-
-.divbook {
-    float: left;
-    width: 67%;
-}
-
-.divBtn {
-    float: right;
-    width: auto;
-    text-align: right;
-    border-radius: 20px;
-    padding: 4px 8px;
-    margin-left: 10px;
-}
-
-.barraContenitore {
-    width: 100px; /* Regola la larghezza della barra */
-    height: 8px;
-    background-color: #e0e0e0;
-    border-radius: 4px;
-    overflow: hidden;
-    display: inline-block;
-    margin-left: 8px;
-}
-
-.barraRiempimento {
-    height: 100%;
-    background-color: #855A41; 
-    border-radius: 4px;
-    float: left;
-}
-
-.divBtn button {
-    margin-left: 5px;
-    border-radius: 15px;
-    background-color: #745644e3;
-    color: whitesmoke;
-}
-
-.divBtn button:hover {
-    background-color: #C08066;
+.title {
+    font-weight: 500;
 }
 
 .title::after,
@@ -294,12 +242,15 @@ textarea:focus {
     content: ' ';
 }
 
-.badge {
-    font-size: 12px;
-    padding: 2px 8px;
-    border-radius: 10px;
-    text-transform: uppercase;
-    margin-left: 10px;
+/* Autore vuoto: niente fiorellino davanti (:empty = elemento senza testo) */
+#ulLista .author:empty::before,
+#ulListaRe .author:empty::before {
+    content: none;
+}
+
+.anno {
+    font-style: italic;
+    font-size: 0.9em;
 }
 
 .rating {
@@ -315,212 +266,160 @@ textarea:focus {
     content: " ★";
 }
 
-#organizer {
-    width: 100%;
-    max-width: 900px;
-    margin: 0 auto; 
-    text-align: center; 
-    padding-left: 50px;
+/* Barra di avanzamento: componente "progress" di Bootstrap, colori tramite le sue variabili */
+.barra {
+    width: 100px;
+    --bs-progress-height: 8px;
+    --bs-progress-bg: #e0e0e0;
+    --bs-progress-bar-bg: var(--marrone);
 }
 
-/*searchbar*/
+/* ===== Recensioni ===== */
 
-#searchInput {
-    width: 100%;
-    max-width: 400px;
-    padding: 10px 14px;
-    margin-top: 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;      
-    box-sizing: border-box;
-    font-size: 0.8rem;
-    float: left;
-}
+/* Freccia del bottone: ruota di 180° quando le recensioni sono aperte.
+   aria-expanded lo aggiorna Bootstrap da solo */
+#btnRecensioni {
+    & .freccia {
+        transition: transform 0.3s ease;
+    }
 
-#searchInput:focus {
-    background-color: antiquewhite;
-}
-
-/*bottoni di ricerca*/
-
-#buttons button {
-    border-radius: 15px;
-    background-color: #745644e3;
-    color: whitesmoke;
-}
-
-#buttons button:hover {
-    background-color: #C08066;
-}
-
-#buttons {
-    text-align: center;
-}
-
-.btn-group {
-    display: inline-block;  
-    text-align: center;     
-    margin: 0 8px;         
-}
-
-.btn-group .counter {
-    display: block;         
-    font-weight: bold;
-    font-size: 0.9rem;
-    margin-bottom: 5px;     
-}
-
-.btn-group button {
-    display: block;        
-}
-
-/*Nascondi cose*/
-
-.hide {
-	display: none;
-}
-
-/*Sezione Recensione*/
-
-#secRecensione {
-    margin-top: 10%;
+    &[aria-expanded="true"] .freccia {
+        transform: rotate(180deg);
+    }
 }
 
 #listaRe {
-    margin-top: 2%;
-    height: 450px;
+    max-height: 450px;
     overflow-y: auto;
     overflow-x: hidden;
     padding-right: 10px;
 }
 
+#ulListaRe {
+    & .recensione {
+        background-color: rgba(255, 255, 255, 0.7);
+        border: 1px solid var(--bordo-vetro);
+    }
 
-#ulListaRe li {
-    width: 100%;
-    overflow: hidden;
-    padding: 6px;
-    margin: 7px 0px;
-    background-color: rgba(255, 255, 255, 0.7);
-    border-radius: 20px;
+    & .author::before {
+        content: '❀';
+        padding: 0 10px;
+        color: var(--marrone);
+    }
+
+    & .read .title::before {
+        content: '✨ ';
+        padding-right: 10px;
+    }
+
+    & .reading .title::before {
+        content: '🗒️ ';
+        padding-right: 10px;
+    }
 }
 
-#ulListaRe li p{
-    padding: 5px;
+/* ===== Libro del mese ===== */
+#bookMonth {
+    & .autoreMese {
+        font-style: italic;
+        color: var(--marrone);
+    }
+
+    & p {
+        text-align: justify;
+    }
+
+    & img {
+        width: 200px;
+    }
 }
 
-.reDivCen {
-    text-align: center;
-}
-
-#ulListaRe .author::before {
-    content: '❀';
-    padding-right: 10px;
-    padding-left: 10px;
-    color: #855A41;
-}
-
-#ulListaRe .read .title::before {
-    content: '✨ ';
-    padding-right: 10px;
-}
-
-#ulListaRe .reading .title::before {
-    content: '🗒️ ';
-    padding-right: 10px;
-}
-
-.reBookTitle {
-    float: left;
-    width: 67%;
-}
-
-
-/*Libro del mese*/
-
-#bookMonth, #aiuto {
-    border: 2px solid #855A41;
-    border-radius: 20px;
-    padding: 12px;
-    margin: 15px;
-}
-
-#bookMonth h3, #aiuto h3 {
-    margin: 15px;
-}
-
-#bookMonth h4 {
-    margin: 15px 0;
-    font-size: large;
-}
-#bookMonth p, #aiuto p {
-    text-align: justify;
-}
-
-#bookMonth img {
-    width: 200px;
-    float: right;
-    margin: 5px 5px 5px 12px;
-    opacity: 0.7;
-}
-
-/* Footer */
-
+/* ===== Footer ===== */
 footer {
-    background-color: rgba(255, 255, 255, 0.5);
-    border: 2px solid rgba(255, 255, 255);
-    height: 150px;
-    padding: 0 15px;
+    & #info a {
+        text-decoration: none;
+        color: var(--marrone);
+
+        &:hover {
+            color: var(--rosa);
+        }
+    }
+
+    & i {
+        font-size: 2.2em;
+        padding: 4px;
+        color: var(--marrone);
+    }
+
+    & #social i:hover {
+        color: var(--rosa);
+    }
 }
 
-/* Regola comune per allineare l'altezza dei blocchi */
+/* ===== Tema scuro =====
+   Il JS mette data-bs-theme="dark" su <html>: Bootstrap scurisce i suoi componenti
+   (modale, campi, bordi...), qui aggiungiamo i colori di Lybra. */
+[data-bs-theme="dark"] {
+    & body {
+        background-color: var(--sfondo-scuro);
+        color: whitesmoke;
+    }
 
-#info,
-#social,
-#copyright {
-    float: left;
-    width: 29%;
-    margin-top: 30px;
-}
+    & .vetro {
+        background-color: rgba(46, 29, 19, 0.75);
+        border-color: #5a4334;
+    }
 
-#info {
-    margin-left: 2%;
-    margin-right: 2%;
-}
+    & #navBar .linkNav {
+        color: whitesmoke;
 
-#info ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-}
+        &:hover {
+            color: var(--rosa);
+        }
+    }
 
-#info a{
-    text-decoration: none;
-    color: #855A41;
-}
+    /* Hero: riquadro vetro scuro con testo chiaro */
+    & #hero .heroBox {
+        background-color: rgba(46, 29, 19, 0.55);
+        border-color: rgba(255, 255, 255, 0.2);
 
-#info a:hover {
-    color: #C08066;
-}
+        & p {
+            color: whitesmoke;
+        }
 
-#social {
-    text-align: center;
-    margin-top: 35px;
-}
+        & .titoloHero {
+            color: var(--rosa);
+        }
+    }
 
-i {
-    font-size: 2.2em;
-    padding: 4px;
-    color: #855A41;
-}
+    /* Il marrone su sfondo scuro si legge poco: bordi e testi dei bottoni in rosa */
+    & .btn-outline-lybra {
+        --bs-btn-color: var(--rosa);
+        --bs-btn-border-color: var(--rosa);
+    }
 
-#social i:hover {
-    color: #C08066;
-}
+    & #ulListaRe .recensione {
+        background-color: rgba(255, 255, 255, 0.06);
+        border-color: #5a4334;
+    }
 
-#copyright {
-    float: right;
-    margin-right: 2%;
-    text-align: center;
-    margin-top: 40px;
+    & .modal-content {
+        background-color: var(--sfondo-scuro);
+    }
+
+    & #bookMonth .autoreMese,
+    & .flowers {
+        color: var(--rosa);
+    }
+
+    /* Parte vuota della barra di avanzamento meno abbagliante */
+    & .barra {
+        --bs-progress-bg: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Link e icone del footer in rosa: il marrone sul fondo scuro si legge poco */
+    & footer #info a,
+    & footer i {
+        color: var(--rosa);
+    }
 }

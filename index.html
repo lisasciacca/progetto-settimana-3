@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="it">
+<!-- data-bs-theme: tema di Bootstrap (light/dark), cambiato dal bottone del tema -->
+<html lang="it" data-bs-theme="light">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lybra - Diario di lettura</title>
+    <!-- Bootstrap: caricato PRIMA del nostro CSS, così in caso di conflitto vincono le nostre regole -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/css.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -14,163 +17,127 @@
 
 <body>
     <header>
-        <div id="lybra">
-            <h1>Lybra</h1>
-            <button id="themeButton">☀️ / 🌙 Cambia Tema</button>
-        </div>
-
-        <div id="headerMain" class="clearfix">
-            <nav id="navBar">
-                <ul>
-                    <li><a href="#secLibrary"><span class="flowers">✿&nbsp</span>La tua libreria</a></li>
-                    <li><a href="#bookMonth"><span class="flowers">✿&nbsp</span> Libro del mese</a></li>
-                    <li><a href="#secRecensione"><span class="flowers">✿&nbsp</span>Le tue recensioni</a></li>
-                </ul>
-            </nav>
-
-            <div id="welcomeText">
-                <p>
-                    Benvenuto nel tuo diario di lettura! Qui potrai tenere traccia dei tuoi libri e non solo!
-                </p>
+        <!-- navbar di Bootstrap + sticky-top: la barra resta visibile mentre si scorre la pagina.
+             vetro: la nostra classe per l'effetto vetro smerigliato (nel CSS) -->
+        <nav id="navBar" class="navbar sticky-top vetro flex-wrap gap-2 rounded-4 shadow-sm px-3 py-1 mb-3">
+            <h1 class="m-0"><a href="#">Lybra</a></h1>
+            <!-- flex-wrap: su schermi stretti i link vanno a capo invece di uscire dalla barra -->
+            <div class="d-flex flex-wrap align-items-center gap-3 gap-md-4">
+                <a class="linkNav" href="#secLibrary">La tua libreria</a>
+                <a class="linkNav" href="#secRecensione">Le tue recensioni</a>
+                <a class="linkNav" href="#bookMonth">Libro del mese</a>
+                <!-- Bottone tondo con icona Font Awesome: il JS alterna luna e sole -->
+                <button id="themeButton" class="btn btn-lybra rounded-circle" aria-label="Cambia tema">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
             </div>
-        </div>
+        </nav>
     </header>
 
     <main>
-        <section id="secNewBook">
-            <h3><span class="flowers">✿❯────「 ✿ &nbsp &nbsp</span>Aggiungi un nuovo libro allo libreria<span
-                    class="flowers">&nbsp &nbsp ✿ 」────❮✿</span>
-            </h3>
-            <div id="newBook">
-                <div id="imgNewBook">
-                    <img src="assets/img/newBook.jpg" alt="Libri su un ripiano">
-                </div>
-                <div id="formNewBook">
-                    <form>
-                        <div id="bookInfo">
-                            <label for="title">Titolo *</label>
-                            <input type="text" id="title" placeholder="Titolo del libro" required>
-                            <label for="author">Autore</label>
-                            <input type="text" id="author" placeholder="Autore del libro">
-                            <label for="genre">Genere</label>
-                            <select id="genre">
-                                <option selected>&nbsp</option>
-                                <option value="narrativa">Narrativa</option>
-                                <option value="poesia">Poesia</option>
-                                <option value="saggistica">Saggistica</option>
-                                <option value="romantico">Romantico</option>
-                                <option value="altra">Altro</option>
-                            </select>
-                            <label for="shelf">Scaffale</label>
-                            <select id="shelf">
-                                <option selected>&nbsp</option>
-                                <option value="read">Letto</option>
-                                <option value="reading">Sto leggendo</option>
-                                <option value="wishlist">Voglio leggere</option>
-                            </select>
-                        </div>
-                        <div id="noteRe" class="hide">
-                            <label for="noteRecensione">Recensione</label>
-                            <textarea id="noteRecensione" placeholder="Scrivi qua la tua recensione o nota"
-                                rows="8"></textarea>
-                            <label for="rating">Valutazione</label>
-                            <textarea type="text" id="rating" placeholder="Inserisci un numero da 0 a 100"
-                                rows="2"></textarea>
-                        </div>
-                    </form>
-
-                </div>
-                <div id="formFooter">
-                    <button class="start" type="submit">Invia</button>
-                    <p>*Campi obbligatori</p>
+        <!-- ===== HERO =====
+             Foto a tutta larghezza con il riquadro vetro al centro e il bottone che apre la modale -->
+        <section id="hero" class="rounded-4 shadow-sm d-flex align-items-center justify-content-center p-4">
+            <div class="heroBox text-center rounded-4 px-4 py-4">
+                <p class="titoloHero m-0">Il tuo diario di lettura</p>
+                <p class="m-0 mt-1">Tieni traccia dei tuoi libri, delle letture in corso e di quelle che sogni.</p>
+                <div class="d-flex flex-wrap justify-content-center gap-2 mt-3">
+                    <!-- data-bs-toggle="modal" + data-bs-target: Bootstrap apre la modale #modaleLibro,
+                         senza scrivere JavaScript -->
+                    <button type="button" class="btn btn-lybra rounded-pill px-4" data-bs-toggle="modal"
+                        data-bs-target="#modaleLibro">
+                        <i class="fa-solid fa-plus me-2"></i>Aggiungi libro
+                    </button>
+                    <a href="#secLibrary" class="btn btn-outline-lybra rounded-pill px-4">Vai alla libreria</a>
                 </div>
             </div>
         </section>
 
-        <section>
-            <div id="secLibrary">
-                <div id="library">
-                    <h3><span class="flowers">✿❯────「 ✿ &nbsp &nbsp</span>La tua libreria<span class="flowers">&nbsp
-                            &nbsp ✿ 」────❮✿</span></h3>
-                    <div id="lista">
-                        <ul id="ulLista"></ul>
-                    </div>
-                    <div id="organizer">
-                        <div id="searchContainer">
-                            <input type="text" id="searchInput" placeholder="Cerca per titolo o autore...">
-                        </div>
-                        <div id="buttons">
-                            <div class="btn-group">
-                                <span class="counter" id="countTutti">0</span>
-                                <button id="btnTutti">Tutti</button>
-                            </div>
-                            <div class="btn-group">
-                                <span class="counter" id="countLetti">0</span>
-                                <button id="btnLetti">Letti</button>
-                            </div>
-                            <div class="btn-group">
-                                <span class="counter" id="countInCorso">0</span>
-                                <button id="btnInCorso">Sto leggendo</button>
-                            </div>
-                            <div class="btn-group">
-                                <span class="counter" id="countWishlist">0</span>
-                                <button id="btnWishlist">Voglio leggere</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <!-- ===== LIBRERIA ===== -->
+        <section id="secLibrary" class="vetro rounded-4 shadow-sm p-4 mt-5">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+                <h2 class="titoloSezione m-0"><span class="flowers">✿</span> La tua libreria</h2>
+                <input type="text" id="searchInput" class="form-control rounded-pill"
+                    placeholder="Cerca per titolo o autore...">
+            </div>
+
+            <!-- Filtri: bottoni a pillola con il contatore dentro. "active" evidenzia il filtro scelto -->
+            <div id="buttons" class="d-flex flex-wrap gap-2 mb-3">
+                <button id="btnTutti" class="btn btn-sm btn-outline-lybra rounded-pill active">
+                    Tutti <span class="badge contatore rounded-pill ms-1" id="countTutti">0</span>
+                </button>
+                <button id="btnLetti" class="btn btn-sm btn-outline-lybra rounded-pill">
+                    Letti <span class="badge contatore rounded-pill ms-1" id="countLetti">0</span>
+                </button>
+                <button id="btnInCorso" class="btn btn-sm btn-outline-lybra rounded-pill">
+                    Sto leggendo <span class="badge contatore rounded-pill ms-1" id="countInCorso">0</span>
+                </button>
+                <button id="btnWishlist" class="btn btn-sm btn-outline-lybra rounded-pill">
+                    Voglio leggere <span class="badge contatore rounded-pill ms-1" id="countWishlist">0</span>
+                </button>
+            </div>
+
+            <!-- overflow-auto: barra di scorrimento se i libri superano l'altezza -->
+            <div id="lista" class="overflow-auto">
+                <ul id="ulLista" class="list-unstyled m-0"></ul>
+            </div>
         </section>
 
-          <section>
-            <div id="secRecensione">
-                <div id="recensione">
-                    <h3><span class="flowers">✿❯────「 ✿ &nbsp &nbsp</span>Le tue recensioni<span class="flowers">&nbsp
-                            &nbsp ✿ 」────❮✿</span></h3>
-                    <div id="listaRe">
-                        <ul id="ulListaRe"></ul>
-                    </div>
+        <!-- ===== RECENSIONI ===== -->
+        <section id="secRecensione" class="vetro rounded-4 shadow-sm p-4 mt-5">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                <h2 class="titoloSezione m-0"><span class="flowers">✿</span> Le tue recensioni</h2>
+                <!-- data-bs-toggle="collapse": Bootstrap apre/chiude #collapseRecensioni.
+                     aria-expanded viene aggiornato da Bootstrap (lo usiamo nel CSS per girare la freccia) -->
+                <button id="btnRecensioni" class="btn btn-outline-lybra rounded-pill" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#collapseRecensioni" aria-expanded="false"
+                    aria-controls="collapseRecensioni">
+                    <span class="testoBottone">Mostra recensioni</span>
+                    <i class="fa-solid fa-chevron-down ms-1 freccia"></i>
+                </button>
+            </div>
+
+            <!-- collapse: nascosto all'inizio, si apre verso il basso con un'animazione -->
+            <div class="collapse" id="collapseRecensioni">
+                <div id="listaRe" class="mt-3">
+                    <ul id="ulListaRe" class="list-unstyled m-0"></ul>
                 </div>
+            </div>
         </section>
 
-        <section>
-            <div id="extra">
-                    <div id="bookMonth">
-                        <h3><span class="flowers">✿&nbsp &nbsp</span> Libro del mese <span class="flowers">&nbsp &nbsp✿</span></h3>
-                        <h4>Narciso e Boccadoro</h4>
-                        <img src="assets/img/cover.jpg" alt="Copertina del libro Narciso e Boccadoro di Hermann Hesse">
-                        <p>Nell'abbazia di Mariabronn arriva un giorno un nuovo allievo, Boccadoro. Suo padre desidera
-                            che
-                            lì completi gli studi e che lì rimanga consacrando la vita a Dio per espiare un misterioso
-                            peccato legato alla sua nascita. Tra gli antichi chiostri e le ampie sale del monastero, il
-                            biondo Boccadoro, sensuale e sognatore, si lega di profonda amicizia col giovane insegnante
-                            Narciso, l'erudito, il prodigio delle scienze e delle lettere. Narciso è tutto spirito,
-                            destinato a una brillante carriera religiosa al riparo dalle insidie del mondo e della
-                            storia;
-                            Boccadoro invece è un 'Wanderer', un viandante, un senza casa. Tentato dall'infinita
-                            ricchezza
-                            della vita e segretamente innamorato anche della sua caducità, diventerà un artista geniale
-                            senza mai smettere di vagabondare per il mondo in cerca di risposte alle sue inquietudini.
-                            Ambientando "Narciso e Boccadoro" nel Medioevo leggendario del cattolicesimo monastico,
-                            Hermann
-                            Hesse ha modo di riflettere sul tema, centrale nella sua poetica, del contrasto fra natura e
-                            spirito, fra eros e logos, fra arte e ascesi, alla ricerca di una loro possibile
-                            integrazione.
-                            Questo romanzo, vera e propria "biografia di un'anima", pone così al lettore – in
-                            un'accattivante, limpida fusione di favola simbolica e romanzo picaresco perfettamente resa
-                            dalla nuova traduzione di Margherita Carbonaro – i grandi interrogativi sulla condizione
-                            dell'uomo contemporaneo.</p>
-                    </div>
-                </div>
-                <div id="quotes">
-                    <p id="pQuotes"></p>
-                </div>
+        <!-- ===== LIBRO DEL MESE ===== -->
+        <section id="bookMonth" class="vetro rounded-4 shadow-sm p-4 mt-5">
+            <h2 class="titoloSezione mb-1"><span class="flowers">✿</span> Libro del mese</h2>
+            <h3 class="fs-5 mb-3">Narciso e Boccadoro <span class="autoreMese">· Hermann Hesse</span></h3>
+            <!-- d-block mx-auto: immagine centrata su mobile; float-md-end: a destra da tablet in su -->
+            <img src="assets/img/cover.jpg" alt="Copertina del libro Narciso e Boccadoro di Hermann Hesse"
+                class="d-block mx-auto float-md-end ms-md-4 mb-3 rounded-3 shadow-sm">
+            <p>Nell'abbazia di Mariabronn arriva un giorno un nuovo allievo, Boccadoro. Suo padre desidera che lì
+                completi gli studi e che lì rimanga consacrando la vita a Dio per espiare un misterioso peccato legato
+                alla sua nascita. Tra gli antichi chiostri e le ampie sale del monastero, il biondo Boccadoro,
+                sensuale e sognatore, si lega di profonda amicizia col giovane insegnante Narciso, l'erudito, il
+                prodigio delle scienze e delle lettere. Narciso è tutto spirito, destinato a una brillante carriera
+                religiosa al riparo dalle insidie del mondo e della storia; Boccadoro invece è un 'Wanderer', un
+                viandante, un senza casa. Tentato dall'infinita ricchezza della vita e segretamente innamorato anche
+                della sua caducità, diventerà un artista geniale senza mai smettere di vagabondare per il mondo in
+                cerca di risposte alle sue inquietudini. Ambientando "Narciso e Boccadoro" nel Medioevo leggendario
+                del cattolicesimo monastico, Hermann Hesse ha modo di riflettere sul tema, centrale nella sua poetica,
+                del contrasto fra natura e spirito, fra eros e logos, fra arte e ascesi, alla ricerca di una loro
+                possibile integrazione. Questo romanzo, vera e propria "biografia di un'anima", pone così al lettore –
+                in un'accattivante, limpida fusione di favola simbolica e romanzo picaresco perfettamente resa dalla
+                nuova traduzione di Margherita Carbonaro – i grandi interrogativi sulla condizione dell'uomo
+                contemporaneo.</p>
+            <!-- clearfix: il riquadro contiene anche l'immagine flottante -->
+            <div class="clearfix"></div>
+            <div id="quotes">
+                <p id="pQuotes"></p>
             </div>
         </section>
     </main>
 
-    <footer>
-        <div id="info">
-            <ul>
+    <footer class="vetro rounded-4 shadow-sm row g-0 align-items-center py-4 px-3 mt-5">
+        <div id="info" class="col-md-4 mb-3 mb-md-0">
+            <ul class="list-unstyled text-center m-0">
                 <li><a href="aboutUs.html" target="_blank">About us</a></li>
                 <li><a href="aboutUs.html" target="_blank">Terms</a></li>
                 <li><a href="aboutUs.html" target="_blank">Privacy</a></li>
@@ -178,21 +145,127 @@
             </ul>
         </div>
 
-        <div id="social">
-            <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://www.facebook.com/" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+        <div id="social" class="col-md-4 text-center mb-3 mb-md-0">
+            <a href="https://www.instagram.com/" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.facebook.com/" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
             <br />
-            <a href="https://x.com" target="_blank"><i class="fa-brands fa-twitter"></i></a>
-            <a href="https://www.tiktok.com" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="https://x.com" target="_blank" aria-label="X"><i class="fa-brands fa-twitter"></i></a>
+            <a href="https://www.tiktok.com" target="_blank" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
         </div>
 
-        <div id="copyright">
+        <div id="copyright" class="col-md-4 text-center">
             ┌──❀*̥˚─────❀*̥˚─┐ <br />
             © Lisa Irene Sciacca <br />
             └───❀*̥˚─────❀*̥˚┘
         </div>
     </footer>
 
+    <!-- ===== MODALE: AGGIUNGI LIBRO =====
+         modal fade: finestra sopra la pagina, con dissolvenza. Si apre dal bottone della hero -->
+    <div class="modal fade" id="modaleLibro" tabindex="-1" aria-labelledby="titoloModale" aria-hidden="true">
+        <!-- modal-lg: più larga; modal-dialog-centered: centrata in verticale;
+             modal-dialog-scrollable: se il contenuto è lungo scorre dentro la modale -->
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content rounded-4">
+                <div class="modal-header">
+                    <h2 class="modal-title titoloSezione" id="titoloModale">Aggiungi un nuovo libro</h2>
+                    <!-- data-bs-dismiss="modal": chiude la modale senza JavaScript -->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+                </div>
+
+                <div class="modal-body">
+                    <!-- novalidate: spegne i fumetti del browser, gli errori li mostra Bootstrap -->
+                    <form id="formLibro" class="row g-3" novalidate>
+                        <div class="col-12">
+                            <label for="title" class="form-label">Titolo *</label>
+                            <!-- pattern: almeno un carattere che non sia uno spazio -->
+                            <input type="text" id="title" class="form-control" placeholder="Titolo del libro"
+                                maxlength="100" pattern=".*\S.*" required>
+                            <!-- Messaggio d'errore: Bootstrap lo mostra solo se il campo prima è non valido -->
+                            <div class="invalid-feedback">Inserisci il titolo del libro.</div>
+                        </div>
+
+                        <div class="col-md-8">
+                            <label for="author" class="form-label">Autore</label>
+                            <input type="text" id="author" class="form-control" placeholder="Autore del libro"
+                                maxlength="60">
+                        </div>
+
+                        <div class="col-md-4">
+                            <!-- Il massimo (anno attuale) viene impostato dal JS -->
+                            <label for="year" class="form-label">Anno</label>
+                            <input type="number" id="year" class="form-control" placeholder="Anno">
+                            <div class="invalid-feedback">Inserisci un anno valido.</div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="genre" class="form-label">Genere</label>
+                            <select id="genre" class="form-select">
+                                <option selected value="">&nbsp</option>
+                                <option value="narrativa">Narrativa</option>
+                                <option value="poesia">Poesia</option>
+                                <option value="saggistica">Saggistica</option>
+                                <option value="romantico">Romantico</option>
+                                <option value="altra">Altro</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="shelf" class="form-label">Scaffale *</label>
+                            <select id="shelf" class="form-select" required>
+                                <!-- value="" serve a required: senza, il valore sarebbe lo spazio &nbsp (non vuoto) -->
+                                <option selected value="">&nbsp</option>
+                                <option value="read">Letto</option>
+                                <option value="reading">Sto leggendo</option>
+                                <option value="wishlist">Voglio leggere</option>
+                            </select>
+                            <div class="invalid-feedback">Scegli uno scaffale.</div>
+                        </div>
+
+                        <!-- d-none: nascosto finché non si sceglie "Letto" o "Sto leggendo" (lo gestisce il JS) -->
+                        <div id="noteRe" class="col-12 d-none">
+                            <div class="row g-3">
+                                <div class="col-md-9">
+                                    <label for="noteRecensione" class="form-label">Recensione</label>
+                                    <textarea id="noteRecensione" class="form-control"
+                                        placeholder="Scrivi qua la tua recensione o nota" rows="4"
+                                        maxlength="1000"></textarea>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="rating" class="form-label">Valutazione</label>
+                                    <!-- Input numerico: min e max fanno il controllo 0-100 -->
+                                    <input type="number" id="rating" class="form-control" min="0" max="100"
+                                        placeholder="0-100">
+                                    <div class="invalid-feedback">Da 0 a 100.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer justify-content-between">
+                    <p class="m-0 small">*Campi obbligatori</p>
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-outline-secondary rounded-pill"
+                            data-bs-dismiss="modal">Annulla</button>
+                        <!-- form="formLibro": il bottone sta fuori dal <form> (nel footer della modale)
+                             ma invia comunque quel form, perché è collegato tramite il suo id -->
+                        <button type="submit" form="formLibro" class="start btn btn-lybra rounded-pill px-4">
+                            Aggiungi
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notifica di conferma: nascosta (d-none) finché il JS non la mostra.
+         position-fixed bottom-0 end-0: fissa in basso a destra, visibile ovunque -->
+    <div id="notifica" class="alert alert-success d-none position-fixed bottom-0 end-0 m-3 z-3" role="alert"></div>
+
+    <!-- JavaScript di Bootstrap: serve per la modale e per l'apertura delle recensioni (collapse).
+         Va caricato PRIMA del nostro js.js, che usa l'oggetto "bootstrap" -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="assets/JS/js.js"></script>
 </body>
 
