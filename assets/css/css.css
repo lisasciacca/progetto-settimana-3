@@ -130,10 +130,36 @@ h1,
     padding: 0;
 }
 
+/* ----- Barra su smartphone: più piccola, tutto su una riga -----
+   575.98px è il limite "sm" di Bootstrap: sotto questa larghezza siamo su smartphone */
+@media (max-width: 575.98px) {
+    #navBar {
+        & h1 {
+            font-size: 1.8rem;
+        }
+
+        & .linkNav {
+            font-size: 0.8rem;
+            white-space: nowrap; /* "Del mese" non va a capo */
+        }
+    }
+
+    #themeButton {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+    }
+}
+
 /* ===== Hero ===== */
 #hero {
     min-height: 420px;
-    background-image: url('../img/header2.jpg');
+    /* Velo sopra la foto: stesso colore dello sfondo della pagina al 30%.
+       Così la foto sembra un po' trasparente, ma il riquadro al centro resta nitido
+       (opacity invece sbiadirebbe tutto il contenuto della sezione).
+       Per un effetto più o meno forte, cambia 0.3 in --velo-hero */
+    --velo-hero: rgba(244, 241, 236, 0.3);
+    background-image: linear-gradient(var(--velo-hero), var(--velo-hero)), url('../img/header2.jpg');
     background-size: cover;
     background-position: center;
 
@@ -152,6 +178,33 @@ h1,
             font-size: 2.8rem;
             line-height: 1.2;
             color: var(--marrone);
+        }
+    }
+}
+
+/* Versione più bassa della hero (pagina aboutUs.html).
+   #hero.heroPiccola: id + classe, così vince sul min-height di #hero */
+#hero.heroPiccola {
+    min-height: 260px;
+}
+
+/* ===== Pagina informazioni (aboutUs.html) ===== */
+.paginaInfo {
+    /* Sottotitoli dei Terms */
+    & h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--marrone);
+        margin-top: 1.25rem;
+    }
+
+    /* Testo giustificato da tablet in su; su smartphone allineato a sinistra
+       (giustificato su righe corte crea spazi troppo larghi tra le parole) */
+    /* :not(#hero): la hero resta centrata */
+    & section:not(#hero) p,
+    & section:not(#hero) li {
+        @media (min-width: 768px) {
+            text-align: justify;
         }
     }
 }
@@ -191,17 +244,27 @@ h1,
 
 /* ===== Libreria ===== */
 
-/* Contatore dentro i bottoni dei filtri */
-.contatore {
-    background-color: var(--marrone);
-    color: whitesmoke;
-    font-weight: normal;
+/* Select di filtri e ordinamento: larghe quanto serve, a tutta larghezza su smartphone */
+#filtri .form-select {
+    width: auto;
+    min-width: 180px;
+
+    @media (max-width: 575.98px) {
+        flex: 1 1 100%;    /* ogni select a tutta larghezza, una sotto l'altra */
+        min-width: 0;
+    }
 }
 
 #lista {
     max-height: 380px;
     overflow-y: auto;
     padding-right: 1%;
+}
+
+/* Messaggio quando non ci sono libri da mostrare (libreria e recensioni) */
+.listaVuota {
+    font-style: italic;
+    opacity: 0.7;
 }
 
 #ulLista {
@@ -272,6 +335,28 @@ h1,
     --bs-progress-height: 8px;
     --bs-progress-bg: #e0e0e0;
     --bs-progress-bar-bg: var(--marrone);
+}
+
+/* ----- Libreria su smartphone e tablet in verticale -----
+   767.98px è il limite "md" di Bootstrap */
+@media (max-width: 767.98px) {
+    /* Valore e bottoni vanno sotto il titolo, a tutta riga:
+       space-between mette il valore a sinistra e i bottoni a destra */
+    .divBtn {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    /* Il gruppo del valore occupa tutto lo spazio libero... */
+    .gruppoValore {
+        flex-grow: 1;
+    }
+
+    /* ...e la barra si allunga fino ai bottoni */
+    .barra {
+        flex-grow: 1;
+        width: auto;
+    }
 }
 
 /* ===== Recensioni ===== */
@@ -354,6 +439,32 @@ footer {
     & #social i:hover {
         color: var(--rosa);
     }
+
+    /* Icone social: in riga su smartphone */
+    & #social {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+
+        /* Da tablet in su: griglia 2x2 come prima */
+        @media (min-width: 768px) {
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+            justify-content: center;
+            gap: 0;
+        }
+    }
+
+    /* Su smartphone: icone e cornice del copyright più piccole */
+    @media (max-width: 767.98px) {
+        & i {
+            font-size: 1.6em;
+        }
+
+        & #copyright {
+            font-size: 0.85rem;
+        }
+    }
 }
 
 /* ===== Tema scuro =====
@@ -376,6 +487,11 @@ footer {
         &:hover {
             color: var(--rosa);
         }
+    }
+
+    /* Hero: nel tema scuro il velo sulla foto è marrone scuro */
+    & #hero {
+        --velo-hero: rgba(46, 29, 19, 0.4);
     }
 
     /* Hero: riquadro vetro scuro con testo chiaro */
@@ -408,7 +524,8 @@ footer {
     }
 
     & #bookMonth .autoreMese,
-    & .flowers {
+    & .flowers,
+    & .paginaInfo h3 {
         color: var(--rosa);
     }
 

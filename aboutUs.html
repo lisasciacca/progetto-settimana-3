@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="it">
+<!-- data-bs-theme: tema di Bootstrap (light/dark), gestito da js.js -->
+<html lang="it" data-bs-theme="light">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lybra - Diario di lettura</title>
+    <title>Lybra - Informazioni</title>
+    <!-- Stessi file della pagina principale: Bootstrap prima, poi il nostro CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/css.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -14,121 +17,172 @@
 
 <body>
     <header>
-        <div id="lybra">
-            <h1>Lybra</h1>
-            <button id="themeButton">☀️ / 🌙 Cambia Tema</button>
-        </div>
-
-        <div id="headerMain" class="clearfix">
-            <nav id="navBar">
-                <ul>
-                    <li><a href="index.html"><span class="flowers">✿&nbsp</span>La tua libreria</a></li>
-                    <li><a href="#privacy"><span class="flowers">✿&nbsp</span>Privacy</a></li>
-                    <li><a href="#help"><span class="flowers">✿&nbsp</span>Help</a></li>
-                </ul>
-            </nav>
-
-            <div id="welcomeText">
-                <p>
-                    Benvenuto nel tuo diario di lettura! Qui potrai tenere traccia dei tuoi libri e non solo!
-                </p>
+        <!-- Stessa barra della pagina principale: sticky-top, effetto vetro, tutto su una riga -->
+        <nav id="navBar" class="navbar sticky-top vetro flex-nowrap gap-2 rounded-4 shadow-sm px-3 py-1 mb-3">
+            <h1 class="m-0"><a href="index.html">Lybra</a></h1>
+            <div class="d-flex flex-nowrap align-items-center gap-2 gap-md-4">
+                <!-- Testo lungo da tablet in su, testo corto su smartphone -->
+                <a class="linkNav" href="index.html">
+                    <span class="d-none d-md-inline">La tua libreria</span><span class="d-md-none">Libreria</span>
+                </a>
+                <a class="linkNav" href="#privacy">Privacy</a>
+                <a class="linkNav" href="#help">Help</a>
+                <!-- Bottone tondo con icona Font Awesome: js.js alterna luna e sole -->
+                <button id="themeButton" class="btn btn-lybra rounded-circle" aria-label="Cambia tema">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
             </div>
-        </div>
+        </nav>
     </header>
 
-    <main>
-        <section>
-            <div id="aiuto">
-                <h3><span class="flowers">✿&nbsp &nbsp</span><span id="aboutUs"> About us </span><span
-                        class="flowers">&nbsp &nbsp✿</span></h3>
-                <p>
-                    Benvenuti nel vostro angolo di paradiso letterario. La nostra piattaforma nasce dalla passione
-                    condivisa per la lettura e dal desiderio di offrire a ogni lettore uno spazio digitale intimo e
-                    ordinato dove custodire le proprie storie del cuore. Che si tratti di organizzare i libri letti,
-                    monitorare i progressi di lettura in tempo reale o pianificare le prossime avventure tra le
-                    pagine, il nostro obiettivo è accompagnarvi passo dopo passo nel vostro percorso culturale.
-                    Crediamo che ogni libro lasci un segno: per questo vi offriamo gli strumenti ideali per
-                    raccogliere recensioni, valutazioni e note personali, trasformando la vostra libreria virtuale
-                    in un archivio unico e ricco di significato.</p>
-            </div>
-            <div id="aiuto">
-                <h3><span class="flowers">✿&nbsp &nbsp</span><span id="terms"> Terms </span><span class="flowers">&nbsp
-                        &nbsp✿</span></h3>
-                <p>
-                    Accedendo o utilizzando la
-                    nostra piattaforma, l'utente accetta di rispettare e vincolarsi ai seguenti Termini e Condizioni. Se
-                    non accetti questi termini, ti invitiamo a non utilizzare il servizio.
-                    <br /><br />
-
-                    Account e Utilizzo Personale
-                    Il servizio è progettato per un utilizzo personale e di catalogazione privata.
-
-                    L'utente è l'unico responsabile della correttezza dei dati inseriti e della conservazione delle
-                    informazioni salvate all'interno della propria libreria virtuale.
-                    <br /><br />
-                    Proprietà dei Contenuti
-                    Contenuti dell'utente: Tutti i testi, le recensioni, le valutazioni e le note inserite dall'utente
-                    rimangono di sua proprietà esclusiva.
-                    <br /><br />
-                    Piattaforma: Il codice sorgente, il design grafico, i loghi e la struttura del sito sono protetti
-                    dai diritti di proprietà intellettuale e non possono essere copiati, modificati o riutilizzati senza
-                    autorizzazione.
-                    <br /><br />
-                    Limitazione di Responsabilità
-                    Il servizio viene fornito "così com'è" e "come disponibile", senza garanzie di alcun tipo, esplicite
-                    o implicite.
-                    <br /><br />
-                    Non ci assumiamo alcuna responsabilità per eventuali perdite di dati, malfunzionamenti temporanei
-                    della piattaforma o interruzioni del servizio dovute a manutenzione o problemi tecnici. Si consiglia
-                    di effettuare periodicamente un backup dei propri dati di catalogazione.
-                    <br /><br />
-                    Modifiche ai Termini
-                    Ci riserviamo il diritto di aggiornare o modificare i presenti Termini e Condizioni in qualsiasi
-                    momento. Eventuali modifiche entreranno in vigore immediatamente dopo la loro pubblicazione sul
-                    sito. L'utilizzo continuato della piattaforma costituisce accettazione dei termini modificati.
-                </p>
-            </div>
-            <div id="aiuto">
-                <h3><span class="flowers">✿&nbsp &nbsp</span><span id="privacy"> Privacy </span><span
-                        class="flowers">&nbsp &nbsp✿</span></h3>
-                <p>
-                    L'Informativa sulla Privacy stabilisce che vengono memorizzati esclusivamente i dati inseriti volontariamente dall'utente, come titoli, autori, generi, stato di lettura, recensioni, valutazioni e note personali. Tali informazioni sono utilizzate unicamente per consentire la gestione della libreria virtuale e il monitoraggio dei progressi di lettura, e non vengono mai cedute a terze parti o impiegate per finalità commerciali, di profilazione o di marketing. I dati sono gestiti localmente o in base all'architettura tecnica configurata per il sito, e l'informativa stessa può essere aggiornata periodicamente tramite la pubblicazione delle relative modifiche sulle pagine della piattaforma.</p>
-            </div>
-            <div id="aiuto">
-                <h3><span class="flowers">✿&nbsp &nbsp</span><span id="help"> Help </span><span
-                        class="flowers">&nbsp &nbsp✿</span></h3>
-                <p>
-                    Utilizzare la tua libreria personale è semplice e intuitivo. Per inserire un nuovo titolo ti basta compilare il modulo nella pagina principale, dove l'unico campo obbligatorio è il titolo, e selezionare lo scaffale corretto insieme a genere, valutazione, percentuale di avanzamento o note personali. Per i libri in corso o completati puoi monitorare facilmente i tuoi progressi grazie a una barra di avanzamento visiva e a un indicatore dedicato. Tutti i libri salvati sono organizzati per categoria all'interno della tua collezione, dove potrai aggiornare le note, modificare lo stato di lettura o eliminare un titolo in qualsiasi momento tramite i comandi presenti su ciascuna scheda. Infine, ti ricordiamo che tutti i dati inseriti rimangono strettamente personali, protetti e visibili soltanto a te per la gestione della tua biblioteca virtuale.</p>
+    <main class="paginaInfo">
+        <!-- ===== HERO (versione più bassa di quella della pagina principale) ===== -->
+        <section id="hero" class="heroPiccola rounded-4 shadow-sm d-flex align-items-center justify-content-center p-4">
+            <div class="heroBox text-center rounded-4 px-4 py-4">
+                <p class="titoloHero m-0">Informazioni</p>
+                <p class="m-0 mt-1">Chi siamo, come funziona Lybra e come trattiamo i tuoi dati.</p>
+                <!-- Indice della pagina: pillole che portano alle sezioni -->
+                <div class="d-flex flex-wrap justify-content-center gap-2 mt-3">
+                    <a href="#aboutUs" class="btn btn-sm btn-outline-lybra rounded-pill">About us</a>
+                    <a href="#terms" class="btn btn-sm btn-outline-lybra rounded-pill">Terms</a>
+                    <a href="#privacy" class="btn btn-sm btn-outline-lybra rounded-pill">Privacy</a>
+                    <a href="#help" class="btn btn-sm btn-outline-lybra rounded-pill">Help</a>
+                </div>
             </div>
         </section>
 
+        <!-- ===== ABOUT US =====
+             Ogni sezione è una card vetro con il suo id (prima c'erano 4 div con lo stesso id "aiuto":
+             un id deve essere unico nella pagina) -->
+        <section id="aboutUs" class="vetro rounded-4 shadow-sm p-4 mt-4">
+            <h2 class="titoloSezione mb-3"><span class="flowers">✿</span> About us</h2>
+            <p class="m-0">
+                Benvenuti nel vostro angolo di paradiso letterario. La nostra piattaforma nasce dalla passione
+                condivisa per la lettura e dal desiderio di offrire a ogni lettore uno spazio digitale intimo e
+                ordinato dove custodire le proprie storie del cuore. Che si tratti di organizzare i libri letti,
+                monitorare i progressi di lettura in tempo reale o pianificare le prossime avventure tra le
+                pagine, il nostro obiettivo è accompagnarvi passo dopo passo nel vostro percorso culturale.
+                Crediamo che ogni libro lasci un segno: per questo vi offriamo gli strumenti ideali per
+                raccogliere recensioni, valutazioni e note personali, trasformando la vostra libreria virtuale
+                in un archivio unico e ricco di significato.
+            </p>
+        </section>
+
+        <!-- ===== TERMS =====
+             I paragrafi separati da <br /><br /> diventano veri paragrafi con un sottotitolo (h3) -->
+        <section id="terms" class="vetro rounded-4 shadow-sm p-4 mt-4">
+            <h2 class="titoloSezione mb-3"><span class="flowers">✿</span> Terms</h2>
+            <p>
+                Accedendo o utilizzando la nostra piattaforma, l'utente accetta di rispettare e vincolarsi ai
+                seguenti Termini e Condizioni. Se non accetti questi termini, ti invitiamo a non utilizzare il
+                servizio.
+            </p>
+
+            <h3>Account e Utilizzo Personale</h3>
+            <p>
+                Il servizio è progettato per un utilizzo personale e di catalogazione privata.
+                L'utente è l'unico responsabile della correttezza dei dati inseriti e della conservazione delle
+                informazioni salvate all'interno della propria libreria virtuale.
+            </p>
+
+            <h3>Proprietà dei Contenuti</h3>
+            <!-- list-unstyled: elenco senza pallini, solo per separare le due voci -->
+            <ul class="list-unstyled">
+                <li class="mb-2">
+                    <strong>Contenuti dell'utente:</strong> tutti i testi, le recensioni, le valutazioni e le note
+                    inserite dall'utente rimangono di sua proprietà esclusiva.
+                </li>
+                <li>
+                    <strong>Piattaforma:</strong> il codice sorgente, il design grafico, i loghi e la struttura del
+                    sito sono protetti dai diritti di proprietà intellettuale e non possono essere copiati,
+                    modificati o riutilizzati senza autorizzazione.
+                </li>
+            </ul>
+
+            <h3>Limitazione di Responsabilità</h3>
+            <p>
+                Il servizio viene fornito "così com'è" e "come disponibile", senza garanzie di alcun tipo, esplicite
+                o implicite.
+            </p>
+            <p>
+                Non ci assumiamo alcuna responsabilità per eventuali perdite di dati, malfunzionamenti temporanei
+                della piattaforma o interruzioni del servizio dovute a manutenzione o problemi tecnici. Si consiglia
+                di effettuare periodicamente un backup dei propri dati di catalogazione.
+            </p>
+
+            <h3>Modifiche ai Termini</h3>
+            <p class="m-0">
+                Ci riserviamo il diritto di aggiornare o modificare i presenti Termini e Condizioni in qualsiasi
+                momento. Eventuali modifiche entreranno in vigore immediatamente dopo la loro pubblicazione sul
+                sito. L'utilizzo continuato della piattaforma costituisce accettazione dei termini modificati.
+            </p>
+        </section>
+
+        <!-- ===== PRIVACY ===== -->
+        <section id="privacy" class="vetro rounded-4 shadow-sm p-4 mt-4">
+            <h2 class="titoloSezione mb-3"><span class="flowers">✿</span> Privacy</h2>
+            <p class="m-0">
+                L'Informativa sulla Privacy stabilisce che vengono memorizzati esclusivamente i dati inseriti
+                volontariamente dall'utente, come titoli, autori, generi, stato di lettura, recensioni, valutazioni
+                e note personali. Tali informazioni sono utilizzate unicamente per consentire la gestione della
+                libreria virtuale e il monitoraggio dei progressi di lettura, e non vengono mai cedute a terze parti
+                o impiegate per finalità commerciali, di profilazione o di marketing. I dati sono gestiti localmente
+                o in base all'architettura tecnica configurata per il sito, e l'informativa stessa può essere
+                aggiornata periodicamente tramite la pubblicazione delle relative modifiche sulle pagine della
+                piattaforma.
+            </p>
+        </section>
+
+        <!-- ===== HELP ===== -->
+        <section id="help" class="vetro rounded-4 shadow-sm p-4 mt-4">
+            <h2 class="titoloSezione mb-3"><span class="flowers">✿</span> Help</h2>
+            <p>
+                Utilizzare la tua libreria personale è semplice e intuitivo. Per inserire un nuovo titolo ti basta
+                compilare il modulo nella pagina principale, dove l'unico campo obbligatorio è il titolo, e
+                selezionare lo scaffale corretto insieme a genere, valutazione, percentuale di avanzamento o note
+                personali. Per i libri in corso o completati puoi monitorare facilmente i tuoi progressi grazie a una
+                barra di avanzamento visiva e a un indicatore dedicato. Tutti i libri salvati sono organizzati per
+                categoria all'interno della tua collezione, dove potrai aggiornare le note, modificare lo stato di
+                lettura o eliminare un titolo in qualsiasi momento tramite i comandi presenti su ciascuna scheda.
+                Infine, ti ricordiamo che tutti i dati inseriti rimangono strettamente personali, protetti e visibili
+                soltanto a te per la gestione della tua biblioteca virtuale.
+            </p>
+            <!-- Invito a tornare alla libreria -->
+            <div class="text-center mt-4">
+                <a href="index.html" class="btn btn-lybra rounded-pill px-4">
+                    <i class="fa-solid fa-arrow-left me-2"></i>Torna alla libreria
+                </a>
+            </div>
+        </section>
     </main>
 
-    <footer>
-        <div id="info">
-            <ul>
-                <li><a href="aboutUs.html" target="_blank">About us</a></li>
-                <li><a href="aboutUs.html" target="_blank">Terms</a></li>
-                <li><a href="aboutUs.html" target="_blank">Privacy</a></li>
-                <li><a href="aboutUs.html" target="_blank">Help</a></li>
+    <!-- Stesso footer della pagina principale: qui i link portano alle sezioni di questa pagina -->
+    <footer class="vetro rounded-4 shadow-sm row g-0 align-items-center py-3 py-md-4 px-3 mt-4">
+        <div id="info" class="col-md-4 mb-2 mb-md-0">
+            <ul class="list-unstyled text-center m-0 d-flex flex-wrap justify-content-center column-gap-3 d-md-block">
+                <li><a href="#aboutUs">About us</a></li>
+                <li><a href="#terms">Terms</a></li>
+                <li><a href="#privacy">Privacy</a></li>
+                <li><a href="#help">Help</a></li>
             </ul>
         </div>
 
-        <div id="social">
-            <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://www.facebook.com/" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
-            <br />
-            <a href="https://x.com" target="_blank"><i class="fa-brands fa-twitter"></i></a>
-            <a href="https://www.tiktok.com" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+        <div id="social" class="col-md-4 mb-2 mb-md-0">
+            <a href="https://www.instagram.com/" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.facebook.com/" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://x.com" target="_blank" aria-label="X"><i class="fa-brands fa-twitter"></i></a>
+            <a href="https://www.tiktok.com" target="_blank" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
         </div>
 
-        <div id="copyright">
+        <div id="copyright" class="col-md-4 text-center">
             ┌──❀*̥˚─────❀*̥˚─┐ <br />
             © Lisa Irene Sciacca <br />
             └───❀*̥˚─────❀*̥˚┘
         </div>
     </footer>
 
+    <!-- Stesso js.js della pagina principale: qui viene eseguita solo la parte del tema
+         (il codice della libreria parte solo se trova la lista dei libri) -->
     <script src="assets/JS/js.js"></script>
 </body>
 

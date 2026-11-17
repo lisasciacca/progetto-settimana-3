@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- data-bs-theme: tema di Bootstrap (light/dark), cambiato dal bottone del tema -->
+<!-- data-bs-theme: tema di Bootstrap (light/dark), gestito da js.js -->
 <html lang="it" data-bs-theme="light">
 
 <head>
@@ -19,13 +19,21 @@
     <header>
         <!-- navbar di Bootstrap + sticky-top: la barra resta visibile mentre si scorre la pagina.
              vetro: la nostra classe per l'effetto vetro smerigliato (nel CSS) -->
-        <nav id="navBar" class="navbar sticky-top vetro flex-wrap gap-2 rounded-4 shadow-sm px-3 py-1 mb-3">
+        <nav id="navBar" class="navbar sticky-top vetro flex-nowrap gap-2 rounded-4 shadow-sm px-3 py-1 mb-3">
             <h1 class="m-0"><a href="#">Lybra</a></h1>
-            <!-- flex-wrap: su schermi stretti i link vanno a capo invece di uscire dalla barra -->
-            <div class="d-flex flex-wrap align-items-center gap-3 gap-md-4">
-                <a class="linkNav" href="#secLibrary">La tua libreria</a>
-                <a class="linkNav" href="#secRecensione">Le tue recensioni</a>
-                <a class="linkNav" href="#bookMonth">Libro del mese</a>
+            <!-- flex-nowrap: tutto su una riga anche su smartphone.
+                 gap-2 su mobile, gap-md-4 da tablet in su -->
+            <div class="d-flex flex-nowrap align-items-center gap-2 gap-md-4">
+                <!-- Testo lungo da tablet in su (d-none d-md-inline), testo corto su smartphone (d-md-none) -->
+                <a class="linkNav" href="#secLibrary">
+                    <span class="d-none d-md-inline">La tua libreria</span><span class="d-md-none">Libreria</span>
+                </a>
+                <a class="linkNav" href="#secRecensione">
+                    <span class="d-none d-md-inline">Le tue recensioni</span><span class="d-md-none">Recensioni</span>
+                </a>
+                <a class="linkNav" href="#bookMonth">
+                    <span class="d-none d-md-inline">Libro del mese</span><span class="d-md-none">Del mese</span>
+                </a>
                 <!-- Bottone tondo con icona Font Awesome: il JS alterna luna e sole -->
                 <button id="themeButton" class="btn btn-lybra rounded-circle" aria-label="Cambia tema">
                     <i class="fa-solid fa-moon"></i>
@@ -54,27 +62,63 @@
         </section>
 
         <!-- ===== LIBRERIA ===== -->
-        <section id="secLibrary" class="vetro rounded-4 shadow-sm p-4 mt-5">
-            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+        <section id="secLibrary" class="vetro rounded-4 shadow-sm p-4 mt-4">
+            <!-- Intestazione: titolo a sinistra, ricerca e "Svuota tutto" a destra -->
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-2">
                 <h2 class="titoloSezione m-0"><span class="flowers">✿</span> La tua libreria</h2>
-                <input type="text" id="searchInput" class="form-control rounded-pill"
-                    placeholder="Cerca per titolo o autore...">
+                <!-- flex-md-nowrap: da tablet in su ricerca e bottone restano sulla stessa riga -->
+                <div class="d-flex flex-wrap flex-md-nowrap gap-2">
+                    <input type="text" id="searchInput" class="form-control rounded-pill"
+                        placeholder="Cerca per titolo o autore...">
+                    <!-- btn-outline-danger: bottone rosso con bordo, già pronto in Bootstrap.
+                         Non svuota direttamente: apre la modale di conferma -->
+                    <button id="svuotaTutto" type="button" class="btn btn-outline-danger rounded-pill text-nowrap"
+                        data-bs-toggle="modal" data-bs-target="#modaleSvuota">
+                        <i class="fa-solid fa-trash-can me-1"></i>Svuota tutto
+                    </button>
+                </div>
             </div>
+            <!-- Nota: corsivo, grigio e piccolo con le classi di Bootstrap -->
+            <p class="info-storage fst-italic text-body-secondary small mb-3">
+                <i class="fa-solid fa-circle-info me-1"></i>I libri sono salvati nel browser e restano anche se
+                ricarichi la pagina.
+            </p>
 
-            <!-- Filtri: bottoni a pillola con il contatore dentro. "active" evidenzia il filtro scelto -->
-            <div id="buttons" class="d-flex flex-wrap gap-2 mb-3">
-                <button id="btnTutti" class="btn btn-sm btn-outline-lybra rounded-pill active">
-                    Tutti <span class="badge contatore rounded-pill ms-1" id="countTutti">0</span>
-                </button>
-                <button id="btnLetti" class="btn btn-sm btn-outline-lybra rounded-pill">
-                    Letti <span class="badge contatore rounded-pill ms-1" id="countLetti">0</span>
-                </button>
-                <button id="btnInCorso" class="btn btn-sm btn-outline-lybra rounded-pill">
-                    Sto leggendo <span class="badge contatore rounded-pill ms-1" id="countInCorso">0</span>
-                </button>
-                <button id="btnWishlist" class="btn btn-sm btn-outline-lybra rounded-pill">
-                    Voglio leggere <span class="badge contatore rounded-pill ms-1" id="countWishlist">0</span>
-                </button>
+            <!-- Filtri e ordinamento: due select affiancate (vanno a capo su schermi stretti) -->
+            <div id="filtri" class="d-flex flex-wrap gap-2 mb-3">
+                <!-- visually-hidden: etichetta invisibile ma letta dai lettori di schermo -->
+                <label for="filtroScaffale" class="visually-hidden">Filtra per scaffale</label>
+                <select id="filtroScaffale" class="form-select form-select-sm rounded-pill">
+                    <!-- Il numero tra parentesi lo aggiorna il JS (aggiornaContatore) -->
+                    <option value="tutti" selected>Tutti</option>
+                    <option value="read">Letti</option>
+                    <option value="reading">Sto leggendo</option>
+                    <option value="wishlist">Voglio leggere</option>
+                </select>
+
+                <label for="ordinamento" class="visually-hidden">Ordina</label>
+                <!-- Sempre attiva. Le opzioni sono raggruppate con <optgroup> (titolo non selezionabile).
+                     Titolo e anno valgono per ogni scaffale; per voto e completamento
+                     il JS passa da solo allo scaffale giusto -->
+                <select id="ordinamento" class="form-select form-select-sm rounded-pill">
+                    <option value="nessuno" selected>Ordina: nessuno</option>
+                    <optgroup label="Titolo">
+                        <option value="titolo-asc">Titolo: A → Z</option>
+                        <option value="titolo-desc">Titolo: Z → A</option>
+                    </optgroup>
+                    <optgroup label="Anno">
+                        <option value="anno-asc">Anno: dal più vecchio</option>
+                        <option value="anno-desc">Anno: dal più recente</option>
+                    </optgroup>
+                    <optgroup label="Voto (letti)">
+                        <option value="voto-desc">Voto: dal più alto</option>
+                        <option value="voto-asc">Voto: dal più basso</option>
+                    </optgroup>
+                    <optgroup label="Completamento (sto leggendo)">
+                        <option value="perc-desc">Completamento: dal più alto</option>
+                        <option value="perc-asc">Completamento: dal più basso</option>
+                    </optgroup>
+                </select>
             </div>
 
             <!-- overflow-auto: barra di scorrimento se i libri superano l'altezza -->
@@ -84,7 +128,7 @@
         </section>
 
         <!-- ===== RECENSIONI ===== -->
-        <section id="secRecensione" class="vetro rounded-4 shadow-sm p-4 mt-5">
+        <section id="secRecensione" class="vetro rounded-4 shadow-sm p-4 mt-4">
             <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
                 <h2 class="titoloSezione m-0"><span class="flowers">✿</span> Le tue recensioni</h2>
                 <!-- data-bs-toggle="collapse": Bootstrap apre/chiude #collapseRecensioni.
@@ -106,7 +150,7 @@
         </section>
 
         <!-- ===== LIBRO DEL MESE ===== -->
-        <section id="bookMonth" class="vetro rounded-4 shadow-sm p-4 mt-5">
+        <section id="bookMonth" class="vetro rounded-4 shadow-sm p-4 mt-4">
             <h2 class="titoloSezione mb-1"><span class="flowers">✿</span> Libro del mese</h2>
             <h3 class="fs-5 mb-3">Narciso e Boccadoro <span class="autoreMese">· Hermann Hesse</span></h3>
             <!-- d-block mx-auto: immagine centrata su mobile; float-md-end: a destra da tablet in su -->
@@ -135,20 +179,22 @@
         </section>
     </main>
 
-    <footer class="vetro rounded-4 shadow-sm row g-0 align-items-center py-4 px-3 mt-5">
-        <div id="info" class="col-md-4 mb-3 mb-md-0">
-            <ul class="list-unstyled text-center m-0">
+    <!-- py-3 su smartphone, py-md-4 da tablet in su -->
+    <footer class="vetro rounded-4 shadow-sm row g-0 align-items-center py-3 py-md-4 px-3 mt-4">
+        <div id="info" class="col-md-4 mb-2 mb-md-0">
+            <!-- Su smartphone i link stanno in riga (d-flex), da tablet in su tornano in colonna (d-md-block) -->
+            <ul class="list-unstyled text-center m-0 d-flex flex-wrap justify-content-center column-gap-3 d-md-block">
                 <li><a href="aboutUs.html" target="_blank">About us</a></li>
-                <li><a href="aboutUs.html" target="_blank">Terms</a></li>
-                <li><a href="aboutUs.html" target="_blank">Privacy</a></li>
-                <li><a href="aboutUs.html" target="_blank">Help</a></li>
+                <li><a href="aboutUs.html#terms" target="_blank">Terms</a></li>
+                <li><a href="aboutUs.html#privacy" target="_blank">Privacy</a></li>
+                <li><a href="aboutUs.html#help" target="_blank">Help</a></li>
             </ul>
         </div>
 
-        <div id="social" class="col-md-4 text-center mb-3 mb-md-0">
+        <!-- Icone: in riga su smartphone, griglia 2x2 da tablet in su (vedi CSS) -->
+        <div id="social" class="col-md-4 mb-2 mb-md-0">
             <a href="https://www.instagram.com/" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
             <a href="https://www.facebook.com/" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-            <br />
             <a href="https://x.com" target="_blank" aria-label="X"><i class="fa-brands fa-twitter"></i></a>
             <a href="https://www.tiktok.com" target="_blank" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
         </div>
@@ -206,7 +252,7 @@
                                 <option value="poesia">Poesia</option>
                                 <option value="saggistica">Saggistica</option>
                                 <option value="romantico">Romantico</option>
-                                <option value="altra">Altro</option>
+                                <option value="altro">Altro</option>
                             </select>
                         </div>
 
@@ -254,6 +300,28 @@
                             Aggiungi
                         </button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODALE: SVUOTA TUTTO =====
+         Conferma prima di cancellare tutti i libri -->
+    <div class="modal fade" id="modaleSvuota" tabindex="-1" aria-labelledby="titoloSvuota" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4">
+                <div class="modal-header">
+                    <h2 class="modal-title fs-5" id="titoloSvuota">Svuotare la libreria?</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="m-0">Tutti i libri e le recensioni verranno eliminati dal browser. Non si può annullare.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary rounded-pill"
+                        data-bs-dismiss="modal">Annulla</button>
+                    <!-- Solo questo bottone svuota davvero (listener in js.js) -->
+                    <button type="button" id="confermaSvuota" class="btn btn-danger rounded-pill">Svuota tutto</button>
                 </div>
             </div>
         </div>
